@@ -25,7 +25,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegistryDocente"
+            android:name=".registrazione.RegistryDocente"
             android:exported="false">
 
             <meta-data
@@ -40,7 +40,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Registry"
+            android:name=".registrazione.Registry"
             android:exported="true">
 
 

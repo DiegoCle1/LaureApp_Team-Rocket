@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,6 +19,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import it.uniba.dib.sms222312.registrazione.Registry;
+import it.uniba.dib.sms222312.registrazione.RegistryDocente;
 
 public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -37,6 +41,14 @@ public class Login extends AppCompatActivity {
                 signIn(email,password);
             }
         });
+        TextView btnRegistry = findViewById(R.id.txt_register);
+        btnRegistry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Login.this, Registry.class));
+            }
+        });
+
     }
     private void signIn(String email, String password) {
                 mAuth.signInWithEmailAndPassword(email, password)

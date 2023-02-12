@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Registry">
+    tools:context=".RegistryDocente">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,18 +14,17 @@
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.265"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="30dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Registrazione Studente"
+            android:text="Registrazione Docente"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +32,7 @@
             android:inputType="textEmailAddress"
             android:padding="16dp" />
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,31 +40,23 @@
             android:inputType="textPassword"
             android:padding="16dp" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/matricola"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/matricola"
-            android:inputType="number"
-            android:padding="16dp" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edt_name"
+        <EditText
+            android:id="@+id/edt_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nome"
             android:inputType="text"
             android:padding="16dp" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edt_surname"
+        <EditText
+            android:id="@+id/edt_surname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/cognome"
             android:inputType="text"
             android:padding="16dp" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

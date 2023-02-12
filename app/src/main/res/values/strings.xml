@@ -4,4 +4,5 @@
     <string name="cognome">Cognome</string>
     <string name="nome">Nome</string>
     <string name="matricola">Matricola</string>
+    <string name="textRegistrati">Non hai un account? Registrati</string>
 </resources>

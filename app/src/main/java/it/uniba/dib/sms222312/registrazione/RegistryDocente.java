@@ -67,8 +67,10 @@ public class RegistryDocente extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     Toast.makeText(RegistryDocente.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(RegistryDocente.this, MainActivity.class));
-                                                    finish();
+                                                    Intent intent = new Intent(RegistryDocente.this, MainActivity.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                    finishAffinity();
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {

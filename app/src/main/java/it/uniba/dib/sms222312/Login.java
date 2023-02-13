@@ -81,13 +81,18 @@ public class Login extends AppCompatActivity {
                         if (role.equals("studente")) {
                             Toast.makeText(Login.this, "Autenticazione come studente.",
                                     Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Login.this, Registry.class));
-                            finish();
+                            Intent intent = new Intent(Login.this, Registry.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finishAffinity();
+
                         } else if (role.equals("docente")) {
                             Toast.makeText(Login.this, "Autenticazione come docente.",
                                     Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Login.this, RegistryDocente.class));
-                            finish();
+                            Intent intent = new Intent(Login.this, RegistryDocente.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finishAffinity();
                         }
                     }
                 });

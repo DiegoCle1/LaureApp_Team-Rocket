@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:autofillHints="@string/dipartimento"
     android:orientation="vertical"
     tools:context=".registrazione.Registry">
 
@@ -50,7 +51,7 @@
             android:padding="16dp" />
 
         <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edt_name"
+            android:id="@+id/edt_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nome"
@@ -58,7 +59,7 @@
             android:padding="16dp" />
 
         <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edt_surname"
+            android:id="@+id/edt_surname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/cognome"
@@ -69,31 +70,31 @@
             android:id="@+id/spinner_dipartimento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
             android:layout_marginTop="8dp"
+            android:contentDescription="@string/dipartimento"
+            android:minHeight="48dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
+            app:layout_constraintRight_toRightOf="parent" />
 
         <Spinner
             android:id="@+id/spinner_corso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
             android:layout_marginTop="8dp"
+            android:minHeight="48dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-           />
+            app:layout_constraintRight_toRightOf="parent" />
 
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
             android:layout_marginTop="8dp"
+            android:background="#3684d7"
+            android:padding="16dp"
             android:text="@string/registrati"
-            />
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

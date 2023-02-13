@@ -30,11 +30,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import it.uniba.dib.sms222312.Login;
 import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.modelli.Studente;
 
@@ -53,6 +54,8 @@ private FirebaseFirestore db;
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Recupero l'elemento selezionato
                 String selectedItem = parent.getItemAtPosition(position).toString();
+                Set<String> uniqueValues = new LinkedHashSet<>();
+                uniqueValues.add("Seleziona corso");
 
                 db.collection("corsi")
                         .whereEqualTo("Dipartimento", selectedItem)
@@ -61,7 +64,7 @@ private FirebaseFirestore db;
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
-                                Set<String> uniqueValues = new HashSet<>();
+
                                 // Per ogni documento, recupera il nome del corso e lo aggiunge alla lista
                                 for (DocumentSnapshot document : documents) {
                                     uniqueValues.add(document.getString("Corso"));
@@ -76,10 +79,10 @@ private FirebaseFirestore db;
                             }
                         });
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Non viene effettuata alcuna selezione
+
             }
         });
         Button btnRegistry = findViewById(R.id.btn_register);
@@ -102,6 +105,10 @@ private FirebaseFirestore db;
                 // Verifica che tutti i campi siano stati compilati
                 if (email.isEmpty() || password.isEmpty() || matricola.isEmpty() || nome.isEmpty() || cognome.isEmpty()) {
                     Toast.makeText(Registry.this, "Tutti i campi sono obbligatori", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(corso.equals("Seleziona corso")){
+                    Toast.makeText(Registry.this, "Inserire il corso", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -138,7 +145,8 @@ private FirebaseFirestore db;
                             // Recupera tutti i documenti dalla query
                             List<DocumentSnapshot> documents = task.getResult().getDocuments();
                             // Crea una lista di stringhe per contenere i nomi dei corsi
-                            Set<String> uniqueValues = new HashSet<>();
+                            Set<String> uniqueValues = new LinkedHashSet<>();
+                            uniqueValues.add("Seleziona dipartimento");
                             // Per ogni documento, recupera il nome del corso e lo aggiunge alla lista
                             for (DocumentSnapshot document : documents) {
                                 uniqueValues.add(document.getString("Dipartimento"));
@@ -168,8 +176,10 @@ private FirebaseFirestore db;
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(Registry.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Registry.this, RegistryDocente.class));
-                        finish();
+                        Intent intent = new Intent(Registry.this, RegistryDocente.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finishAffinity();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

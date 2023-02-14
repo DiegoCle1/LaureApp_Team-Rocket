@@ -20,8 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import it.uniba.dib.sms222312.docenti.HomeDocente;
 import it.uniba.dib.sms222312.registrazione.Registry;
-import it.uniba.dib.sms222312.registrazione.RegistryDocente;
 
 public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -89,7 +89,7 @@ public class Login extends AppCompatActivity {
                         } else if (role.equals("docente")) {
                             Toast.makeText(Login.this, "Autenticazione come docente.",
                                     Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Login.this, RegistryDocente.class);
+                            Intent intent = new Intent(Login.this, HomeDocente.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finishAffinity();

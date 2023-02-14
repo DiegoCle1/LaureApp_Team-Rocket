@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import it.uniba.dib.sms222312.Login;
 import it.uniba.dib.sms222312.MainActivity;
 import it.uniba.dib.sms222312.R;
 
@@ -67,7 +68,7 @@ public class RegistryDocente extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     Toast.makeText(RegistryDocente.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent(RegistryDocente.this, MainActivity.class);
+                                                    Intent intent = new Intent(RegistryDocente.this, Login.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finishAffinity();

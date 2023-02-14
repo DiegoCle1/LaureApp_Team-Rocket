@@ -176,7 +176,7 @@ private FirebaseFirestore db;
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(Registry.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Registry.this, RegistryDocente.class);
+                        Intent intent = new Intent(Registry.this, Login.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finishAffinity();

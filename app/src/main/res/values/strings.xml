@@ -7,4 +7,6 @@
     <string name="dipartimento">Dipartimento</string>
     <string name="corso">Corso</string>
     <string name="textRegistrati">Non hai un account? Registrati</string>
+    <string name="home">Home</string>
+    <string name="profilo">Profilo</string>
 </resources>

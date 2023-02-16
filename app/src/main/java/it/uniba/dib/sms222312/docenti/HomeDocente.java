@@ -20,6 +20,7 @@ public class HomeDocente extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     HomeDocenteFragment homeFragment = new HomeDocenteFragment();
     ProfiloDocenteFragment profiloFragment = new ProfiloDocenteFragment();
+    RegistraTesiFragment registraTesiFragment = new RegistraTesiFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

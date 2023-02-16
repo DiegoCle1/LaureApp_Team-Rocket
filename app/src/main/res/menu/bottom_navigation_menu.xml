@@ -3,11 +3,11 @@
     <item
         android:id="@+id/page_1"
         android:enabled="true"
-        android:icon="@drawable/icona_home"
+        android:icon="@drawable/ic_sharp_home_24"
         android:title="@string/home"/>
     <item
         android:id="@+id/page_2"
         android:enabled="true"
-        android:icon="@drawable/icona_profilo"
+        android:icon="@drawable/ic_baseline_person"
         android:title="@string/profilo"/>
 </menu>

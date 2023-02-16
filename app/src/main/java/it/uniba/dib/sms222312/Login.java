@@ -38,15 +38,12 @@ public class Login extends AppCompatActivity {
                 EditText edtPassword = findViewById(R.id.edt_password);
                 String email = edtEmail.getText().toString();
                 String password = edtPassword.getText().toString();
+                if (email.isEmpty() || password.isEmpty() ) {
+                    Toast.makeText(getApplicationContext(), "Tutti i campi sono obbligatori", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 mAuth = FirebaseAuth.getInstance();
                 signIn(email,password);
-            }
-        });
-        TextView btnRegistry = findViewById(R.id.txt_register);
-        btnRegistry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Login.this, Registry.class));
             }
         });
 

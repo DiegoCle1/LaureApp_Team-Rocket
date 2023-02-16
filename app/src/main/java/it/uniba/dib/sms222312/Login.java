@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import it.uniba.dib.sms222312.docenti.HomeDocente;
 import it.uniba.dib.sms222312.registrazione.Registry;
+import it.uniba.dib.sms222312.studenti.HomeStudente;
 
 public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -81,7 +82,7 @@ public class Login extends AppCompatActivity {
                         if (role.equals("studente")) {
                             Toast.makeText(Login.this, "Autenticazione come studente.",
                                     Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Login.this, Registry.class);
+                            Intent intent = new Intent(Login.this, HomeStudente.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finishAffinity();

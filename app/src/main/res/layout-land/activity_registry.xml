@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".registrazione.Registry">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".registrazione.Registry">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -104,20 +108,20 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                >
+                android:layout_marginTop="8dp">
 
                 <Spinner
                     android:id="@+id/spinner_corso"
                     android:layout_width="match_parent"
-                    style="@style/Widget.AppCompat.Spinner.DropDown"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/corso"
                     android:minHeight="48dp"
+                    style="@style/Widget.AppCompat.Spinner"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
 
         </LinearLayout>
 
@@ -148,4 +152,6 @@
             app:layout_constraintVertical_bias="0.5"
             tools:layout_editor_absoluteX="0dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

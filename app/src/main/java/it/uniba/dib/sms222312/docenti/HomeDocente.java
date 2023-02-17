@@ -36,7 +36,7 @@ public class HomeDocente extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
                         return true;
                     case R.id.page_2:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container,profiloFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, listaTesiFragment).commit();
                         return true;
                 }
                 return false;

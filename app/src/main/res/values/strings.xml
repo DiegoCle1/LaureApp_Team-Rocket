@@ -24,4 +24,5 @@
     <string name="selezionaCorso">Seleziona corso</string>
     <string name="authDocente">Autenticazione come docente.</string>
     <string name="authStudente">Autenticazione come studente.</string>
+    <string name="nuovaTesi">Inserisci Nuova Tesi</string>
 </resources>

@@ -21,6 +21,7 @@ public class HomeDocente extends AppCompatActivity {
     HomeDocenteFragment homeFragment = new HomeDocenteFragment();
     ProfiloDocenteFragment profiloFragment = new ProfiloDocenteFragment();
     RegistraTesiFragment registraTesiFragment = new RegistraTesiFragment();
+    ListaTesiFragment listaTesiFragment = new ListaTesiFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

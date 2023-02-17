@@ -8,6 +8,7 @@ public class Tesi {
     private int mediaVoti;
     private String descrizione;
 
+    public Tesi(){}
     public Tesi(String id, String nome, String corso, int oreDurata, int mediaVoti, String descrizione) {
         this.id = id;
         this.nome = nome;

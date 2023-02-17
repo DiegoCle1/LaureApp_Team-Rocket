@@ -3,7 +3,6 @@ package it.uniba.dib.sms222312.registrazione;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,89 +10,74 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import it.uniba.dib.sms222312.LoadingDialog;
-import it.uniba.dib.sms222312.Login;
-import it.uniba.dib.sms222312.MainActivity;
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.modelli.Docente;
+import it.uniba.dib.sms222312.modelli.Studente;
 
 public class RegistryDocente extends AppCompatActivity {
+    private final LoadingDialog loadingDialog = new LoadingDialog(RegistryDocente.this);
+    private Studente studente;
+    private FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registry_docente);
         Button btnRegistry = findViewById(R.id.btn_register);
-
-        final LoadingDialog loadingDialog = new LoadingDialog(RegistryDocente.this);
+        db = FirebaseFirestore.getInstance();
         btnRegistry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText edtEmail = findViewById(R.id.email);
-                String email = edtEmail.getText().toString();
-                EditText edtPassword = findViewById(R.id.password);
-                String password = edtPassword.getText().toString();
-                EditText edtNome = findViewById(R.id.edt_name);
-                String nome = edtNome.getText().toString();
-                EditText edtCognome = findViewById(R.id.edt_surname);
-                String cognome = edtCognome.getText().toString();
-
-                // Verifica che tutti i campi siano stati compilati
-                if (email.isEmpty() || password.isEmpty()  || nome.isEmpty() || cognome.isEmpty()) {
-                    Toast.makeText(RegistryDocente.this, "Tutti i campi sono obbligatori", Toast.LENGTH_SHORT).show();
+                loadingDialog.startLoadingDialog();
+                if (registra()){
+                    loadingDialog.dismissDialog();
                     return;
                 }
-
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(RegistryDocente.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Creazione di un nuovo utente riuscita
-                                    String user = auth.getCurrentUser().getUid();
-                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                    Map<String, Object> userDb = new HashMap<>();
-                                    userDb.put("email", email);
-                                    userDb.put("nome", nome);
-                                    userDb.put("cognome", cognome);
-                                    userDb.put("tipo", "docente");
-                                    db.collection("utente").document(user).set(userDb)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(RegistryDocente.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent(RegistryDocente.this, Login.class);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    startActivity(intent);
-                                                    finishAffinity();
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(RegistryDocente.this, "Errore durante la registrazione", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                } else {
-                                    // Creazione di un nuovo utente non riuscita, mostra un messaggio di errore.
-                                    Toast.makeText(RegistryDocente.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                    loadingDialog.dismissDialog();
-                                }
-                            }
-                        });
-                loadingDialog.startLoadingDialog();
             }
         });
 
     }
+
+    private boolean registra() {
+        EditText edtEmail = findViewById(R.id.email);
+        String email = edtEmail.getText().toString();
+        EditText edtPassword = findViewById(R.id.password);
+        String password = edtPassword.getText().toString();
+        EditText edtNome = findViewById(R.id.edt_name);
+        String nome = edtNome.getText().toString();
+        EditText edtCognome = findViewById(R.id.edt_surname);
+        String cognome = edtCognome.getText().toString();
+
+        // Verifica che tutti i campi siano stati compilati
+        if (email.isEmpty() || password.isEmpty()  || nome.isEmpty() || cognome.isEmpty()) {
+            Toast.makeText(RegistryDocente.this, R.string.errorCampiObbligatori, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(RegistryDocente.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            String user = auth.getCurrentUser().getUid();
+                            Docente docente = new Docente(user, email, nome, cognome);
+                            if(docente.registraDocente(db,RegistryDocente.this))
+                                loadingDialog.dismissDialog();
+                        } else {
+                            // Creazione di un nuovo utente non r
+                            // iuscita, mostra un messaggio di errore.
+                            Toast.makeText(RegistryDocente.this, R.string.errorEmailPass,
+                                    Toast.LENGTH_SHORT).show();
+                            loadingDialog.dismissDialog();
+                        }
+                    }
+                }); return false;
+    }
+
 }

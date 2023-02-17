@@ -1,5 +1,21 @@
 package it.uniba.dib.sms222312.modelli;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import it.uniba.dib.sms222312.Login;
+import it.uniba.dib.sms222312.R;
+
 public class Studente {
     private String id;
     private String matricola;
@@ -16,6 +32,8 @@ public class Studente {
         this.cognome = cognome;
         this.corso = corso;
     }
+
+    public String getCorso() { return corso;}
 
     public String getId() {
         return id;
@@ -35,5 +53,34 @@ public class Studente {
 
     public String getCognome() {
         return cognome;
+    }
+
+    public boolean registraUtente(FirebaseFirestore db, Activity activity) {
+        boolean[] flag = {false};
+        Map<String, Object> userDb = new HashMap<>();
+        userDb.put("email", this.email);
+        userDb.put("matricola", this.matricola);
+        userDb.put("nome", this.nome);
+        userDb.put("cognome", this.cognome);
+        userDb.put("corso", this.corso);
+        userDb.put("tipo", "studente");
+        db.collection("utente").document(this.id).set(userDb)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(activity, R.string.successRegistrazione, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(activity, Login.class);
+                        activity.startActivity(intent);
+                        activity.finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(activity, R.string.errorRegistrazione, Toast.LENGTH_SHORT).show();
+                        flag[0] =true;
+                    }
+                });
+        return flag[0];
     }
 }

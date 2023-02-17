@@ -9,10 +9,19 @@
     <string name="textRegistrati">Non hai un account? Registrati</string>
     <string name="home">Home</string>
     <string name="profilo">Profilo</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="registrazione_docente">Registrazione Docente</string>
     <string name="accedi">Accedi</string>
+    <string name="errorRegistrazione">Registrazione fallita</string>
+    <string name="errorEmailPass">Email o password non validi</string>
+    <string name="errorMatricola">Matricola non valida</string>
+    <string name="errorCampiObbligatori">Tutti i campi sono obbligatori</string>
+    <string name="errorCorso">Inserire il corso</string>
+    <string name="successRegistrazione">Registrazione avvenuta con successo</string>
+    <string name="selezionaDip">Seleziona dipartimento</string>
+    <string name="selezionaCorso">Seleziona corso</string>
+    <string name="authDocente">Autenticazione come docente.</string>
+    <string name="authStudente">Autenticazione come studente.</string>
 </resources>

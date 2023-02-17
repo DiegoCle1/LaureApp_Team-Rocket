@@ -82,7 +82,7 @@ public class Login extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         String role = documentSnapshot.getString("tipo");
                         if (role.equals("studente")) {
-                            Toast.makeText(Login.this, "Autenticazione come studente.",
+                            Toast.makeText(Login.this, R.string.authStudente,
                                     Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Login.this, HomeStudente.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -90,7 +90,7 @@ public class Login extends AppCompatActivity {
                             finishAffinity();
 
                         } else if (role.equals("docente")) {
-                            Toast.makeText(Login.this, "Autenticazione come docente.",
+                            Toast.makeText(Login.this, R.string.authDocente,
                                     Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Login.this, HomeDocente.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

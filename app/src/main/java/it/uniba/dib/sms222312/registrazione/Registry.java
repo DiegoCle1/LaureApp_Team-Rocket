@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import it.uniba.dib.sms222312.LoadingDialog;
 import it.uniba.dib.sms222312.Login;
 import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.modelli.Studente;
@@ -86,6 +87,8 @@ private FirebaseFirestore db;
             }
         });
         Button btnRegistry = findViewById(R.id.btn_register);
+
+        final LoadingDialog loadingDialog = new LoadingDialog(Registry.this);
         btnRegistry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,9 +128,11 @@ private FirebaseFirestore db;
                                     // Creazione di un nuovo utente non riuscita, mostra un messaggio di errore.
                                     Toast.makeText(Registry.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
+                                    loadingDialog.dismissDialog();
                                 }
                             }
                         });
+                loadingDialog.startLoadingDialog();
             }
         });
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +32,8 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Button btnLogin = findViewById(R.id.btn_login);
+
+        final LoadingDialog loadingDialog = new LoadingDialog(Login.this);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,12 +46,13 @@ public class Login extends AppCompatActivity {
                     return;
                 }
                 mAuth = FirebaseAuth.getInstance();
-                signIn(email,password);
+                signIn(email,password,loadingDialog);
+                loadingDialog.startLoadingDialog();
             }
         });
 
     }
-    private void signIn(String email, String password) {
+    private void signIn(String email, String password, LoadingDialog loadingDialog) {
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -59,6 +63,7 @@ public class Login extends AppCompatActivity {
                                 } else {
                                     Toast.makeText(Login.this, "Autenticazione fallita.",
                                             Toast.LENGTH_SHORT).show();
+                                    loadingDialog.dismissDialog();
                                 }
                             }
                         });

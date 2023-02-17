@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import it.uniba.dib.sms222312.LoadingDialog;
 import it.uniba.dib.sms222312.Login;
 import it.uniba.dib.sms222312.MainActivity;
 import it.uniba.dib.sms222312.R;
@@ -31,6 +32,8 @@ public class RegistryDocente extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registry_docente);
         Button btnRegistry = findViewById(R.id.btn_register);
+
+        final LoadingDialog loadingDialog = new LoadingDialog(RegistryDocente.this);
         btnRegistry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,9 +87,11 @@ public class RegistryDocente extends AppCompatActivity {
                                     // Creazione di un nuovo utente non riuscita, mostra un messaggio di errore.
                                     Toast.makeText(RegistryDocente.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
+                                    loadingDialog.dismissDialog();
                                 }
                             }
                         });
+                loadingDialog.startLoadingDialog();
             }
         });
 

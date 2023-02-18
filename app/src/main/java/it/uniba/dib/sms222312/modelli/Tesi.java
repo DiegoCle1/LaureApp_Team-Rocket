@@ -1,25 +1,25 @@
 package it.uniba.dib.sms222312.modelli;
 
 public class Tesi {
-    private String id;
+    private String docente;
     private String nome;
     private String corso;
-    private int oreDurata;
-    private int mediaVoti;
+    private String ore;
+    private String media;
     private String descrizione;
 
     public Tesi(){}
-    public Tesi(String id, String nome, String corso, int oreDurata, int mediaVoti, String descrizione) {
-        this.id = id;
+    public Tesi(String docente, String nome, String corso, String oreDurata, String mediaVoti, String descrizione) {
+        this.docente = docente;
         this.nome = nome;
         this.corso = corso;
-        this.oreDurata = oreDurata;
-        this.mediaVoti = mediaVoti;
+        this.ore = oreDurata;
+        this.media = mediaVoti;
         this.descrizione = descrizione;
     }
 
-    public String getId() {
-        return id;
+    public String getDocente() {
+        return docente;
     }
 
     public String getNome() {
@@ -30,12 +30,24 @@ public class Tesi {
         return corso;
     }
 
-    public int getOreDurata() {
-        return oreDurata;
+    public String getOre() {
+        return ore;
     }
 
-    public int getMediaVoti() {
-        return mediaVoti;
+    @Override
+    public String toString() {
+        return "Tesi{" +
+                "docente='" + docente + '\'' +
+                ", nome='" + nome + '\'' +
+                ", corso='" + corso + '\'' +
+                ", ore='" + ore + '\'' +
+                ", media='" + media + '\'' +
+                ", descrizione='" + descrizione + '\'' +
+                '}';
+    }
+
+    public String getMedia() {
+        return media;
     }
 
     public String getDescrizione() {

@@ -114,7 +114,7 @@ public class RegistraTesiFragment extends Fragment {
                 }
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 String user = auth.getCurrentUser().getUid();
-                tesi = new Tesi(user,nome,corso,Integer.parseInt(ore),Integer.parseInt(media),descrizione);
+                tesi = new Tesi(user,nome,corso,ore,media,descrizione);
                 registraTesi(tesi);
             }
         });
@@ -153,11 +153,11 @@ public class RegistraTesiFragment extends Fragment {
 
     private void registraTesi(Tesi tesi) {
         Map<String, Object> userDb = new HashMap<>();
-        userDb.put("docente", tesi.getId());
+        userDb.put("docente", tesi.getDocente());
         userDb.put("nome", tesi.getNome());
         userDb.put("corso", tesi.getCorso());
-        userDb.put("ore", tesi.getOreDurata());
-        userDb.put("media", tesi.getMediaVoti());
+        userDb.put("ore", tesi.getOre());
+        userDb.put("media", tesi.getMedia());
         userDb.put("descrizione", tesi.getDescrizione());
         db.collection("tesi").document().set(userDb)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

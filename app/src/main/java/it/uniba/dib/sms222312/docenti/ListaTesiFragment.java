@@ -1,6 +1,7 @@
 package it.uniba.dib.sms222312.docenti;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,10 +34,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.modelli.RecyclerViewInterface;
 import it.uniba.dib.sms222312.modelli.Tesi;
 import it.uniba.dib.sms222312.modelli.TesiAdapter;
 
-public class ListaTesiFragment extends Fragment {
+public class ListaTesiFragment extends Fragment implements RecyclerViewInterface {
 
     RecyclerView recyclerView;
     FirebaseFirestore database;
@@ -56,7 +58,7 @@ public class ListaTesiFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         list = new ArrayList<Tesi>();
-        myAdapter = new TesiAdapter(getActivity(),list);
+        myAdapter = new TesiAdapter(getActivity(),list,this);
         recyclerView.setAdapter(myAdapter);
         EventChangeListener();
         Button btn = viewa.findViewById(R.id.btn);
@@ -91,5 +93,18 @@ public class ListaTesiFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(getActivity(), VisualizzaTesiActivity.class);
+
+        intent.putExtra("Nome", list.get(position).getNome());
+        intent.putExtra("Corso", list.get(position).getCorso());
+        intent.putExtra("Descrizione", list.get(position).getDescrizione());
+        intent.putExtra("Media", list.get(position).getMedia());
+        intent.putExtra("Durata", list.get(position).getOre());
+
+        startActivity(intent);
     }
 }

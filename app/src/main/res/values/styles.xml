@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.MaterialComponents.Button.TextButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:textColor">@color/md_theme_light_onPrimary</item>
+        <item name="backgroundTint">@color/md_theme_light_primary</item>
+        <item name="rippleColor">@color/md_theme_light_inversePrimary</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="Widget.MaterialComponents.Spinne" parent="Theme.MaterialComponents">
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="Spinner" parent="Widget.MaterialComponents.AutoCompleteTextView.FilledBox">
+        <item name="endIconMode">dropdown_menu</item>
+    </style>
+    <style name="MyOutlinedCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="strokeColor">@color/cardview_shadow_start_color</item>
+        <item name="strokeWidth">@dimen/cardview_compat_inset_shadow</item>
+    </style>
+
+
+
+
+</resources>

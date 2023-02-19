@@ -4,7 +4,7 @@
     <string name="cognome">Cognome</string>
     <string name="nome">Nome</string>
     <string name="matricola">Matricola</string>
-    <string name="dipartimento">Dipartimento</string>
+    <string name="dipartimento">  Dipartimento</string>
     <string name="corso">Corso</string>
     <string name="textRegistrati">Non hai un account? Registrati</string>
     <string name="home">Home</string>

@@ -101,4 +101,7 @@ public class Login extends AppCompatActivity {
                 });
     }
 
+    public void esci(View view) {
+        finish();
+    }
 }

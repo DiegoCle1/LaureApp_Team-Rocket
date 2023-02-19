@@ -5,8 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 
@@ -22,12 +21,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import it.uniba.dib.sms222312.registrazione.Registry;
-
 public class UpdateSpinner {
-    private Spinner spinnerD,spinnerC;
+    private AutoCompleteTextView spinnerD;
+    private AutoCompleteTextView spinnerC;
 
-    public UpdateSpinner(Spinner spinnerD, Spinner spinnerC) {
+    public UpdateSpinner(AutoCompleteTextView spinnerD, AutoCompleteTextView spinnerC) {
         this.spinnerD = spinnerD;
         this.spinnerC = spinnerC;
     }
@@ -44,7 +42,6 @@ public class UpdateSpinner {
                             List<DocumentSnapshot> documents = task.getResult().getDocuments();
                             // Crea una lista di stringhe per contenere i nomi dei corsi
                             Set<String> uniqueValues = new LinkedHashSet<>();
-                            uniqueValues.add(spinnerD.getContext().getResources().getString(R.string.selezionaDip));
                             // Per ogni documento, recupera il nome del corso e lo aggiunge alla lista
                             for (DocumentSnapshot document : documents) {
                                 uniqueValues.add(document.getString("Dipartimento"));
@@ -65,7 +62,6 @@ public class UpdateSpinner {
         // Recupero l'elemento selezionato
         String selectedItem = parent.getItemAtPosition(position).toString();
         Set<String> uniqueValues = new LinkedHashSet<>();
-        uniqueValues.add(spinnerD.getContext().getResources().getString(R.string.selezionaCorso));
 
         db.collection("corsi")
                 .whereEqualTo("Dipartimento", selectedItem)
@@ -74,7 +70,6 @@ public class UpdateSpinner {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
-
                         // Per ogni documento, recupera il nome del corso e lo aggiunge alla lista
                         for (DocumentSnapshot document : documents) {
                             uniqueValues.add(document.getString("Corso"));

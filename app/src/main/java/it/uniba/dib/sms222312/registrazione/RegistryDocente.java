@@ -79,5 +79,7 @@ public class RegistryDocente extends AppCompatActivity {
                     }
                 }); return false;
     }
-
+    public void esci(View view) {
+        finish();
+    }
 }

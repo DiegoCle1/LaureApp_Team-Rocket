@@ -35,7 +35,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:hint="@string/password"
                 app:endIconMode="password_toggle">
 
@@ -51,7 +51,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:hint="@string/matricola">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -66,7 +66,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:hint="@string/nome"
                 android:inputType="text">
 
@@ -80,7 +80,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:hint="@string/cognome">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -90,35 +90,36 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Spinner
-                android:id="@+id/spinner_dipartimento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:contentDescription="@string/dipartimento"
-                android:minHeight="48dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
-
-
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                >
+                android:hint="@string/dipartimento">
 
-                <Spinner
-                    android:id="@+id/spinner_corso"
+                <AutoCompleteTextView
+                    android:id="@+id/spinner_dipartimento"
+                    style="@style/Spinner"
                     android:layout_width="match_parent"
-                    style="@style/Widget.AppCompat.Spinner.DropDown"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/corso"
-                    android:minHeight="48dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="@string/corso">
+
+                <AutoCompleteTextView
+                    android:id="@+id/spinner_corso"
+                    style="@style/Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <Button
@@ -154,7 +155,7 @@
         style="@style/Widget.Material3.Button.IconButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:onClick="esci"
         android:contentDescription="@string/home"
         app:icon="@drawable/baseline_arrow_back_24"
         app:iconSize="35dp"

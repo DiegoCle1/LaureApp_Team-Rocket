@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -32,20 +34,16 @@ private final LoadingDialog loadingDialog = new LoadingDialog(Registry.this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registry);
         db = FirebaseFirestore.getInstance();
-        Spinner spinnerCourses = findViewById(R.id.spinner_dipartimento);
+        AutoCompleteTextView spinnerCourses = findViewById(R.id.spinner_dipartimento);
         UpdateSpinner updateSpinner = new UpdateSpinner(spinnerCourses,findViewById(R.id.spinner_corso));
         updateSpinner.updateSpinnerD(db);
-        spinnerCourses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 updateSpinner.updateSpinnerC(parent,position,db);
             }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Non viene effettuata alcuna selezione
-
-            }
         });
+
         Button btnRegistry = findViewById(R.id.btn_register);
         btnRegistry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +70,8 @@ private final LoadingDialog loadingDialog = new LoadingDialog(Registry.this);
         String nome = edtNome.getText().toString();
         EditText edtCognome = findViewById(R.id.edt_surname);
         String cognome = edtCognome.getText().toString();
-        Spinner coursesSpinner = findViewById(R.id.spinner_corso);
-        Object selectedItem = coursesSpinner.getSelectedItem();
+        AutoCompleteTextView coursesSpinner = findViewById(R.id.spinner_corso);
+        Object selectedItem = coursesSpinner.getText();
         String corso = selectedItem.toString();
         // Verifica che tutti i campi siano stati compilati
         if (email.isEmpty() || password.isEmpty() || matricola.isEmpty() || nome.isEmpty() || cognome.isEmpty()) {
@@ -111,5 +109,7 @@ private final LoadingDialog loadingDialog = new LoadingDialog(Registry.this);
     }
 
 
-
+    public void esci(View view) {
+        finish();
+    }
 }

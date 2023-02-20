@@ -1,12 +1,14 @@
-package it.uniba.dib.sms222312;
+package it.uniba.dib.sms222312.menuHome;
 
 public class cardHome {
         private int image;
         private String title;
+        private String activityName;
 
-        public cardHome(int image, String title) {
+        public cardHome(int image, String title, String activityName) {
             this.image = image;
             this.title = title;
+            this.activityName = activityName;
         }
 
         public int getImage() {
@@ -24,4 +26,12 @@ public class cardHome {
         public void setTitle(String title) {
             this.title = title;
         }
+
+    public String getactivityName() {
+        return activityName;
+    }
+
+    public void setactivityName(String descrizione) {
+        this.activityName = descrizione;
+    }
 }

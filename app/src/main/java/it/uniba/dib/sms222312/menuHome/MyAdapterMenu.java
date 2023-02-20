@@ -1,4 +1,4 @@
-package it.uniba.dib.sms222312;
+package it.uniba.dib.sms222312.menuHome;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
@@ -15,14 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import it.uniba.dib.sms222312.R;
+
 public class MyAdapterMenu extends RecyclerView.Adapter<MyAdapterMenu.MenuViewHolder> {
 
     private List<cardHome> menuItems;
     private Context context;
+    private OnItemClickListener listener;
 
-    public MyAdapterMenu(List<cardHome> menuItems, Context context) {
+    public MyAdapterMenu(List<cardHome> menuItems, Context context, OnItemClickListener listener) {
         this.menuItems = menuItems;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -32,7 +36,9 @@ public class MyAdapterMenu extends RecyclerView.Adapter<MyAdapterMenu.MenuViewHo
         return new MenuViewHolder(view);
     }
 
-
+    public interface OnItemClickListener {
+        void onItemClick(cardHome menuItem);
+    }
     @Override
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -42,14 +48,19 @@ public class MyAdapterMenu extends RecyclerView.Adapter<MyAdapterMenu.MenuViewHo
         holder.imageView.setImageResource(menuItem.getImage());
         holder.titleTextView.setText(menuItem.getTitle());
         if(screenWidth<screenHeight){
-            int textSize = (int) (screenWidth * 0.02f); // Imposta la dimensione del testo al 4% della larghezza dello schermo
+            int textSize = (int) (screenWidth * 0.01f); // Imposta la dimensione del testo al 4% della larghezza dello schermo
             holder.titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         }else{
-            int textSize = (int) (screenHeight * 0.03f); // Imposta la dimensione del testo al 4% della larghezza dello schermo
+            int textSize = (int) (screenHeight * 0.015f); // Imposta la dimensione del testo al 4% della larghezza dello schermo
             holder.titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
 
         }
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(menuItem);
+            }
+        });
     }
 
     @Override

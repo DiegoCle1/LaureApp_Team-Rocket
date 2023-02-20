@@ -32,11 +32,12 @@ public class HomeDocenteFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         // Aggiungi gli elementi del menu
-        menuItems.add(new cardHome(R.drawable.ic_sharp_home_24, "home"));
-        menuItems.add(new cardHome(R.drawable.ic_sharp_home_24, "home"));
-        menuItems.add(new cardHome(R.drawable.ic_sharp_home_24, "home"));
-        menuItems.add(new cardHome(R.drawable.ic_sharp_home_24, "home"));
-        menuItems.add(new cardHome(R.drawable.ic_sharp_home_24, "home"));
+        menuItems.add(new cardHome(R.drawable.icona_chat, "Chat"));
+        menuItems.add(new cardHome(R.drawable.icona_ricevimenti, "Ricevimenti"));
+        menuItems.add(new cardHome(R.drawable.icona_mie_tesi, "Mie Tesi"));
+        menuItems.add(new cardHome(R.drawable.icona_richieste_tesi, "Richiesta Tesi"));
+        menuItems.add(new cardHome(R.drawable.icona_info_tesi, "Info Tesi"));
+        menuItems.add(new cardHome(R.drawable.icona_tesi_avviate, "Tesi Avviate"));
 
         // Imposta l'adattatore per il RecyclerView
         MyAdapterMenu adapter = new MyAdapterMenu(menuItems, getContext());

@@ -16,11 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
@@ -106,5 +109,45 @@ public class ListaTesiFragment extends Fragment implements RecyclerViewInterface
         intent.putExtra("Durata", list.get(position).getOre());
 
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
+        // Crea una query per cercare il documento con i dati specificati
+        Query query = database.collection("tesi").whereEqualTo("corso", list.get(position).getCorso()).whereEqualTo("nome", list.get(position).getNome()).whereEqualTo("descrizione", list.get(position).getDescrizione()).whereEqualTo("media",list.get(position).getMedia()).whereEqualTo("ore",list.get(position).getOre()).whereEqualTo("docente",list.get(position).getDocente());
+
+// Esegui la query e ottieni il primo documento corrispondente
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    // Ottieni il primo documento corrispondente
+                    DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+
+                    // Ottieni l'ID del documento
+                    String documentId = documentSnapshot.getId();
+
+                    // Usa l'ID del documento per fare altre operazioni su di esso
+                    database.collection("tesi").document(documentId)
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("msg", "DocumentSnapshot successfully deleted!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("msg", "Error deleting document", e);
+                                }
+                            });
+                } else {
+                    // Nessun documento corrispondente trovato
+                }
+            }
+        });
+        list.remove(position);
+        myAdapter.notifyItemRemoved(position);
     }
 }

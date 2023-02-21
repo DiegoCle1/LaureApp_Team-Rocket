@@ -55,7 +55,7 @@ public class HomeStudenteFragment extends Fragment implements MyAdapterMenu.OnIt
             // Aggiungi gli elementi del menu
             menuItems.add(new cardHome(R.drawable.icona_chat, "Chat" , HomeDocente.class.getName()));
             menuItems.add(new cardHome(R.drawable.icona_classifica, "Classifica Tesi", HomeDocente.class.getName()));
-            menuItems.add(new cardHome(R.drawable.icona_ricerca, "Ricerca Tesi", ListaTesiFragment.class.getName()));
+            menuItems.add(new cardHome(R.drawable.icona_ricerca, "Ricerca Tesi", CercaTesiActivity.class.getName()));
             menuItems.add(new cardHome(R.drawable.icona_ricevimenti, "Ricevimenti", HomeDocente.class.getName()));
             menuItems.add(new cardHome(R.drawable.icona_tesi, "Info Tesi", HomeDocente.class.getName()));
             menuItems.add(new cardHome(R.drawable.icona_mie_tesi, "Mie Tesi", HomeDocente.class.getName()));

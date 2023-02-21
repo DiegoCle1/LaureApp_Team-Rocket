@@ -13,6 +13,9 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".studenti.CercaTesiActivity"
+            android:exported="false" />
+        <activity
             android:name=".docenti.ModificaTesiActivity"
             android:exported="false" />
         <activity

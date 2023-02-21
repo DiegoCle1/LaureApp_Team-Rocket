@@ -27,6 +27,11 @@ public class TesiAdapter extends RecyclerView.Adapter<TesiAdapter.TesiViewHolder
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
+    public void setFilteredList(ArrayList<Tesi> filteredList){
+        this.list = filteredList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public TesiViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

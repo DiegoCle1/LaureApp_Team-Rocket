@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".docenti.VisualizzaTesiActivity">
+    tools:context=".studenti.VisualizzaTesiStudenteActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,6 +41,16 @@
             android:layout_height="wrap_content"
             android:text="Corso" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Docente" />
+
+        <TextView
+            android:id="@+id/docente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Docente" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -76,10 +86,17 @@
             android:text="Descrizione" />
 
         <Button
-            android:id="@+id/modifica"
+            android:id="@+id/classifica"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Modifica"
+            android:text="Aggiungi alla classifica"
+            />
+
+        <Button
+            android:id="@+id/richiesta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Richiedi tesi"
             />
 
     </LinearLayout>

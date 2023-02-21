@@ -6,10 +6,12 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.docenti.VisualizzaTesiActivity;
 import it.uniba.dib.sms222312.modelli.RecyclerViewInterface;
 import it.uniba.dib.sms222312.modelli.Tesi;
 import it.uniba.dib.sms222312.modelli.TesiAdapter;
@@ -36,11 +39,27 @@ public class CercaTesiActivity extends AppCompatActivity implements RecyclerView
     TesiAdapter myAdapter;
     ArrayList<Tesi> list;
     String corso = null;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cerca_tesi);
+
+        searchView = findViewById(R.id.searchView);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
 
         recyclerView = findViewById(R.id.listaTesi);
         database = FirebaseFirestore.getInstance();
@@ -51,6 +70,21 @@ public class CercaTesiActivity extends AppCompatActivity implements RecyclerView
         myAdapter = new TesiAdapter(CercaTesiActivity.this,list,this);
         recyclerView.setAdapter(myAdapter);
         EventChangeListener();
+    }
+
+    private void filterList(String text) {
+        ArrayList<Tesi> filteredList = new ArrayList<>();
+        for(Tesi tesi : list){
+            if(tesi.getNome().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(tesi);
+            }
+        }
+
+        if(filteredList.isEmpty()){
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        }else {
+            myAdapter.setFilteredList(filteredList);
+        }
     }
 
     private void EventChangeListener(){
@@ -85,7 +119,16 @@ public class CercaTesiActivity extends AppCompatActivity implements RecyclerView
 
     @Override
     public void onItemClick(int position) {
+        Intent intent = new Intent(CercaTesiActivity.this, VisualizzaTesiStudenteActivity.class);
 
+        intent.putExtra("Nome", list.get(position).getNome());
+        intent.putExtra("Corso", list.get(position).getCorso());
+        intent.putExtra("Descrizione", list.get(position).getDescrizione());
+        intent.putExtra("Media", list.get(position).getMedia());
+        intent.putExtra("Durata", list.get(position).getOre());
+        intent.putExtra("Docente", list.get(position).getDocente());
+
+        startActivity(intent);
     }
 
     @Override

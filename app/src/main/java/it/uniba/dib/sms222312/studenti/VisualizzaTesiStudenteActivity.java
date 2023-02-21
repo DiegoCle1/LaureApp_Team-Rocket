@@ -84,10 +84,12 @@ public class VisualizzaTesiStudenteActivity extends AppCompatActivity {
                 FirebaseFirestore database = FirebaseFirestore.getInstance();
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 String user = auth.getCurrentUser().getUid();
-                Classifica classifica = new Classifica(user, nome);
+                Classifica classifica = new Classifica(user, nome, durata, media);
                 Map<String, Object> userDb = new HashMap<>();
                 userDb.put("utente", classifica.getUtente());
                 userDb.put("nome", classifica.getNome());
+                userDb.put("durata", classifica.getDurata());
+                userDb.put("media", classifica.getMedia());
                 database.collection("classifica").document().set(userDb).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {

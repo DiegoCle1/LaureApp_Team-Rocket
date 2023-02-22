@@ -1,16 +1,12 @@
 package it.uniba.dib.sms222312.studenti;
 
-import android.os.Bundle;
-
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
@@ -19,38 +15,33 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Document;
-
 import java.util.ArrayList;
 
 import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.modelli.Classifica;
 import it.uniba.dib.sms222312.modelli.ClassificaAdapter;
 
-public class VisualizzaClassificaFragment extends Fragment {
+public class VisualizzaClassificaActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ArrayList<Classifica> classificaArrayList;
     ClassificaAdapter myAdapter;
     FirebaseFirestore db;
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_visualizza_classifica, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_visualizza_classifica);
 
-        recyclerView = view.findViewById(R.id.classifica);
+        recyclerView = findViewById(R.id.classifica);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         db = FirebaseFirestore.getInstance();
         classificaArrayList = new ArrayList<Classifica>();
-        myAdapter = new ClassificaAdapter(getActivity(), classificaArrayList);
+        myAdapter = new ClassificaAdapter(this, classificaArrayList);
 
         EventChangeListener();
-
-        return view;
     }
 
     private void EventChangeListener() {

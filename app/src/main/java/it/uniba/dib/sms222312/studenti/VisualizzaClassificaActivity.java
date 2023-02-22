@@ -1,7 +1,9 @@
 package it.uniba.dib.sms222312.studenti;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.modelli.Classifica;
@@ -35,13 +38,17 @@ public class VisualizzaClassificaActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.classifica);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(VisualizzaClassificaActivity.this));
 
         db = FirebaseFirestore.getInstance();
         classificaArrayList = new ArrayList<Classifica>();
-        myAdapter = new ClassificaAdapter(this, classificaArrayList);
+        myAdapter = new ClassificaAdapter(VisualizzaClassificaActivity.this, classificaArrayList);
+        recyclerView.setAdapter(myAdapter);
 
         EventChangeListener();
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     private void EventChangeListener() {
@@ -66,4 +73,23 @@ public class VisualizzaClassificaActivity extends AppCompatActivity {
         });
 
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END, 0) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+
+            int fromPosition = viewHolder.getBindingAdapterPosition();
+            int toPosition = target.getBindingAdapterPosition();
+            Collections.swap(classificaArrayList,fromPosition,toPosition);
+
+            recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+    };
 }

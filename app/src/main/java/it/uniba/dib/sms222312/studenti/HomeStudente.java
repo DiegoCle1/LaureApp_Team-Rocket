@@ -37,7 +37,7 @@ public class HomeStudente extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
                         return true;
                     case R.id.page_2:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container,profiloFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container,profiloFragment).addToBackStack(null).commit();
                         return true;
                 }
                 return false;

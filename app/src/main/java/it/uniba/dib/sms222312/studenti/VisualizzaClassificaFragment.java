@@ -38,9 +38,9 @@ public class VisualizzaClassificaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View viewa = inflater.inflate(R.layout.fragment_visualizza_classifica, container, false);
+        View view = inflater.inflate(R.layout.fragment_visualizza_classifica, container, false);
 
-        recyclerView = viewa.findViewById(R.id.classifica);
+        recyclerView = view.findViewById(R.id.classifica);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -50,7 +50,7 @@ public class VisualizzaClassificaFragment extends Fragment {
 
         EventChangeListener();
 
-        return viewa;
+        return view;
     }
 
     private void EventChangeListener() {

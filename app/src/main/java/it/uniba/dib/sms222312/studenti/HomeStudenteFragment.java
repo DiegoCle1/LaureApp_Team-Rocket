@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -66,13 +68,25 @@ public class HomeStudenteFragment extends Fragment implements MyAdapterMenu.OnIt
     @Override
     public void onItemClick(cardHome menuItem) {
         try{
-            Intent intent = new Intent(getActivity(), Class.forName(menuItem.getactivityName())); // Replace with the name of your activity
+            Class<?> fragmentClass = Class.forName(menuItem.getactivityName());
+            Fragment fragment = (Fragment) fragmentClass.newInstance();
+            // Inizia una nuova transazione del Fragment
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+           /* Intent intent = new Intent(getActivity(), Class.forName(menuItem.getactivityName())); // Replace with the name of your activity
             // Add any extras or data to the intent if needed
-            startActivity(intent);
+            startActivity(intent);*/
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (java.lang.InstantiationException e) {
             e.printStackTrace();
         }
     }
+
 
     /*// Aggiungi gli elementi del menu
         menuItems.add(new cardHome(R.drawable.icona_chat, "Chat"));

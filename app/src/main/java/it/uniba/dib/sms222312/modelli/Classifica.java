@@ -24,6 +24,16 @@ public class Classifica {
     public Classifica() {
     }
 
+    @Override
+    public String toString() {
+        return "Classifica{" +
+                "utente='" + utente + '\'' +
+                ", nome='" + nome + '\'' +
+                ", durata='" + durata + '\'' +
+                ", media='" + media + '\'' +
+                '}';
+    }
+
     public String getUtente() {
         return utente;
     }

@@ -9,6 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.PopupMenu;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,6 +32,8 @@ import java.util.Collections;
 import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.modelli.Classifica;
 import it.uniba.dib.sms222312.modelli.ClassificaAdapter;
+import it.uniba.dib.sms222312.modelli.ComparaDurata;
+import it.uniba.dib.sms222312.modelli.ComparaMedia;
 
 public class VisualizzaClassificaActivity extends AppCompatActivity {
 
@@ -53,6 +60,14 @@ public class VisualizzaClassificaActivity extends AppCompatActivity {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+        Button button = findViewById(R.id.popup_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupMenu(view);
+            }
+        });
+
     }
 
     private void EventChangeListener() {
@@ -82,8 +97,8 @@ public class VisualizzaClassificaActivity extends AppCompatActivity {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
 
-            int fromPosition = viewHolder.getBindingAdapterPosition();
-            int toPosition = target.getBindingAdapterPosition();
+            int fromPosition = viewHolder.getAdapterPosition();
+            int toPosition = target.getAdapterPosition();
             Collections.swap(classificaArrayList,fromPosition,toPosition);
 
             recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
@@ -94,7 +109,7 @@ public class VisualizzaClassificaActivity extends AppCompatActivity {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-            int position = viewHolder.getBindingAdapterPosition();
+            int position = viewHolder.getAdapterPosition();
 
             switch (direction){
                 case ItemTouchHelper.LEFT:
@@ -137,4 +152,33 @@ public class VisualizzaClassificaActivity extends AppCompatActivity {
 
         }
     };
+
+    private void showPopupMenu(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.ordinamento_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.order_by_media:
+                        ComparaMedia comparator = new ComparaMedia();
+                        Collections.sort(classificaArrayList, comparator);
+                        myAdapter.notifyDataSetChanged();
+                        break;
+                    case R.id.order_by_durata:
+                        ComparaDurata comparatord = new ComparaDurata();
+                        Collections.sort(classificaArrayList, comparatord);
+                        myAdapter.notifyDataSetChanged();
+                        break;
+                    default:
+                        return false;
+                }
+                return true;
+            }
+        });
+        popup.show();
+    }
+
+
 }

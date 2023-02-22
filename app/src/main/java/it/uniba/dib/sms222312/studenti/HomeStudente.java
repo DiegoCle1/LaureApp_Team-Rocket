@@ -50,4 +50,15 @@ public class HomeStudente extends AppCompatActivity {
         startActivity(new Intent(HomeStudente.this, Login.class));
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView.getSelectedItemId() == R.id.page_1) {
+            finish();
+        }else{
+            super.onBackPressed();
+        }
+
+    }
 }

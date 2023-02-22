@@ -6,10 +6,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".studenti.VisualizzaClassificaActivity">
-
+<LinearLayout
+    android:id="@+id/linearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <Button
+        android:id="@+id/popup_button"
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/registrati"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/classifica"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+</LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

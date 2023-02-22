@@ -35,7 +35,7 @@ public class HomeDocente extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
                         return true;
                     case R.id.page_2:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, listaTesiFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, listaTesiFragment).addToBackStack(null).commit();
                         return true;
                 }
                 return false;
@@ -46,5 +46,15 @@ public class HomeDocente extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(HomeDocente.this, Login.class));
         finish();
+    }
+    @Override
+    public void onBackPressed() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView.getSelectedItemId() == R.id.page_1) {
+            finish();
+        }else{
+            super.onBackPressed();
+        }
+
     }
 }

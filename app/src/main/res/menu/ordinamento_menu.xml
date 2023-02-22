@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:id="@+id/order_by_media"
+            android:title="Ordina per media voti" />
+        <item android:id="@+id/order_by_durata"
+            android:title="Ordina per durata" />
+</menu>

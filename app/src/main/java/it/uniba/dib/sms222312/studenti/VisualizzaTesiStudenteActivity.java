@@ -3,6 +3,7 @@ package it.uniba.dib.sms222312.studenti;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -27,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.docenti.VisualizzaTesiActivity;
 import it.uniba.dib.sms222312.modelli.Classifica;
 
 public class VisualizzaTesiStudenteActivity extends AppCompatActivity {
@@ -102,6 +106,36 @@ public class VisualizzaTesiStudenteActivity extends AppCompatActivity {
                                 Toast.makeText(VisualizzaTesiStudenteActivity.this,"Impossibile aggiungere alla classifica", Toast.LENGTH_SHORT).show();
                             }
                         });
+            }
+        });
+
+        richiediButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                String usera = auth.getCurrentUser().getUid();
+                Query query = database.collection("tesi").whereEqualTo("corso", corso).whereEqualTo("nome", nome).whereEqualTo("descrizione", descrizione).whereEqualTo("media",media).whereEqualTo("ore",durata).whereEqualTo("docente",docente);
+                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            // Ottieni il primo documento corrispondente
+                            DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+
+                            // Ottieni l'ID del documento
+                            String documentId = documentSnapshot.getId();
+                            Intent intent = new Intent(VisualizzaTesiStudenteActivity.this, InvioRichiestaActivity.class);
+
+                            intent.putExtra("Studente", usera);
+                            intent.putExtra("Docente", docente);
+                            intent.putExtra("Tesi", documentId);
+
+                            startActivity(intent);
+                        } else {
+                            // Nessun documento corrispondente trovato
+                        }
+                    }
+                });
             }
         });
     }

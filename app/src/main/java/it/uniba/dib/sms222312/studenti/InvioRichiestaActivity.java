@@ -41,12 +41,7 @@ public class InvioRichiestaActivity extends AppCompatActivity {
                 String descrizione = edtDescrizione.getText().toString();
                 FirebaseFirestore database = FirebaseFirestore.getInstance();
                 RichiestaTesi richiestaTesi = new RichiestaTesi(studente, docente, tesi, descrizione);
-                Map<String, Object> userDb = new HashMap<>();
-                userDb.put("studente", richiestaTesi.getStudente());
-                userDb.put("docente", richiestaTesi.getDocente());
-                userDb.put("tesi", richiestaTesi.getTesi());
-                userDb.put("descrizione", richiestaTesi.getDescrizione());
-                database.collection("richiestatesi").document().set(userDb).addOnSuccessListener(new OnSuccessListener<Void>() {
+                database.collection("richiestatesi").document().set(richiestaTesi).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(InvioRichiestaActivity.this,"Richiesta inviata", Toast.LENGTH_SHORT).show();

@@ -6,6 +6,8 @@ public class RichiestaTesi {
     private String tesi;
     private String descrizione;
 
+    public RichiestaTesi(){}
+
     public RichiestaTesi(String studente, String docente, String tesi, String descrizione) {
         this.studente = studente;
         this.docente = docente;

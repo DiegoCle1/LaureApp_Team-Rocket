@@ -24,6 +24,8 @@ public class Studente {
     private String cognome;
     private String corso;
 
+    public Studente(){}
+
     public Studente(String id, String matricola, String email, String nome, String cognome, String corso) {
         this.id = id;
         this.matricola = matricola;

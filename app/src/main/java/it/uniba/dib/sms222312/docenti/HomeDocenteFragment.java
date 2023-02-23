@@ -59,7 +59,7 @@ public class HomeDocenteFragment extends Fragment implements MyAdapterMenu.OnIte
             menuItems.add(new cardHome(R.drawable.icona_chat, "Chat" , HomeDocente.class.getName()));
             menuItems.add(new cardHome(R.drawable.icona_ricevimenti, "Ricevimenti", HomeDocente.class.getName()));
             menuItems.add(new cardHome(R.drawable.icona_mie_tesi, "Mie Tesi",ListaTesiFragment.class.getName()));
-            menuItems.add(new cardHome(R.drawable.icona_richieste_tesi, "Richiesta Tesi", HomeDocente.class.getName()));
+            menuItems.add(new cardHome(R.drawable.icona_richieste_tesi, "Richiesta Tesi", ListaRichiesteActivity.class.getName()));
             menuItems.add(new cardHome(R.drawable.icona_tesi_avviate, "Tesi Avviate", HomeDocente.class.getName()));
         }
     }

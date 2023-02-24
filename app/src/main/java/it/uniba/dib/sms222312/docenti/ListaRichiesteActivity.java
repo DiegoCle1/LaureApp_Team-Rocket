@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.ClipData;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -25,15 +28,17 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.modelli.ListaRichiesteInterface;
 import it.uniba.dib.sms222312.modelli.RichiestaTesi;
 import it.uniba.dib.sms222312.modelli.RichiestaTesiAdapter;
 
-public class ListaRichiesteActivity extends AppCompatActivity {
+public class ListaRichiesteActivity extends AppCompatActivity implements ListaRichiesteInterface {
 
     RecyclerView recyclerView;
     ArrayList<RichiestaTesi> richiestaTesiArrayList;
     RichiestaTesiAdapter myAdapter;
     FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,7 @@ public class ListaRichiesteActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         richiestaTesiArrayList = new ArrayList<RichiestaTesi>();
-        myAdapter = new RichiestaTesiAdapter(ListaRichiesteActivity.this, richiestaTesiArrayList);
+        myAdapter = new RichiestaTesiAdapter(ListaRichiesteActivity.this, richiestaTesiArrayList, this);
         recyclerView.setAdapter(myAdapter);
         EventChangeListener();
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
@@ -129,4 +134,30 @@ public class ListaRichiesteActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(ListaRichiesteActivity.this, VisualizzaRichiestaActivity.class);
+
+        intent.putExtra("Tesi", richiestaTesiArrayList.get(position).getTesi());
+        intent.putExtra("Studente", richiestaTesiArrayList.get(position).getStudente());
+        intent.putExtra("Docente", richiestaTesiArrayList.get(position).getDocente());
+        intent.putExtra("Descrizione", richiestaTesiArrayList.get(position).getDescrizione());
+
+        startActivityForResult(intent, position);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            // Codice per "restartare" l'activity
+            Log.d("qualcosa","si");
+            richiestaTesiArrayList.remove(requestCode);
+            myAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+
 }

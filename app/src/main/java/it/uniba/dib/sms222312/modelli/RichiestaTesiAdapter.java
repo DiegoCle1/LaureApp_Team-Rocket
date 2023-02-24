@@ -19,12 +19,14 @@ import java.util.ArrayList;
 import it.uniba.dib.sms222312.R;
 
 public class RichiestaTesiAdapter extends RecyclerView.Adapter<RichiestaTesiAdapter.RichiestaTesiViewHolder> {
+    private final ListaRichiesteInterface listaRichiesteInterface;
     Context context;
     ArrayList<RichiestaTesi> richiestaTesiArrayList;
 
-    public RichiestaTesiAdapter(Context context, ArrayList<RichiestaTesi> richiestaTesiArrayList) {
+    public RichiestaTesiAdapter(Context context, ArrayList<RichiestaTesi> richiestaTesiArrayList, ListaRichiesteInterface listaRichiesteInterface) {
         this.context = context;
         this.richiestaTesiArrayList = richiestaTesiArrayList;
+        this.listaRichiesteInterface = listaRichiesteInterface;
     }
 
     @NonNull
@@ -33,7 +35,7 @@ public class RichiestaTesiAdapter extends RecyclerView.Adapter<RichiestaTesiAdap
 
         View v = LayoutInflater.from(context).inflate(R.layout.itemrichiesta,parent,false);
 
-        return new RichiestaTesiViewHolder(v);
+        return new RichiestaTesiViewHolder(v, listaRichiesteInterface);
     }
 
     @Override
@@ -67,11 +69,24 @@ public class RichiestaTesiAdapter extends RecyclerView.Adapter<RichiestaTesiAdap
 
         TextView matricola, nome, cognome;
 
-        public RichiestaTesiViewHolder(@NonNull View itemView) {
+        public RichiestaTesiViewHolder(@NonNull View itemView, ListaRichiesteInterface listaRichiesteInterface) {
             super(itemView);
             matricola = itemView.findViewById(R.id.matricolaRichiesta);
             nome = itemView.findViewById(R.id.nomeRichiesta);
             cognome = itemView.findViewById(R.id.cognomeRichiesta);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listaRichiesteInterface != null){
+                        int position = getAdapterPosition();
+
+                        if(position != RecyclerView.NO_POSITION){
+                            listaRichiesteInterface.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

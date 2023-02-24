@@ -22,6 +22,12 @@ public class Docente {
     private String nome;
     private String cognome;
 
+    public Docente(String id, String nome, String cognome) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+    }
+
     public Docente(String id, String email, String nome, String cognome) {
         this.id = id;
         this.email = email;
@@ -43,6 +49,11 @@ public class Docente {
 
     public String getCognome() {
         return cognome;
+    }
+
+    @Override
+    public String toString() {
+        return nome + " " + cognome;
     }
 
     public boolean registraDocente(FirebaseFirestore db, Activity activity) {

@@ -20,12 +20,15 @@ import it.uniba.dib.sms222312.R;
 
 public class TesistiAdapter extends RecyclerView.Adapter<TesistiAdapter.tesistiViewHolder> {
 
+    private final ListaRichiesteInterface recyclerViewInterface;
+
     Context context;
     ArrayList<Tesista> tesistaArrayList;
 
-    public TesistiAdapter(Context context, ArrayList<Tesista> tesistaArrayList) {
+    public TesistiAdapter(Context context, ArrayList<Tesista> tesistaArrayList, ListaRichiesteInterface listaRichiesteInterface) {
         this.context = context;
         this.tesistaArrayList = tesistaArrayList;
+        this.recyclerViewInterface = listaRichiesteInterface;
     }
 
     @NonNull
@@ -34,7 +37,7 @@ public class TesistiAdapter extends RecyclerView.Adapter<TesistiAdapter.tesistiV
 
         View v = LayoutInflater.from(context).inflate(R.layout.itemtesista,parent,false);
 
-        return new tesistiViewHolder(v);
+        return new tesistiViewHolder(v, recyclerViewInterface);
     }
 
     @Override
@@ -81,12 +84,24 @@ public class TesistiAdapter extends RecyclerView.Adapter<TesistiAdapter.tesistiV
 
         TextView matricola, nome, cognome, tesi;
 
-        public tesistiViewHolder(@NonNull View itemView) {
+        public tesistiViewHolder(@NonNull View itemView, ListaRichiesteInterface recyclerViewInterface) {
             super(itemView);
             matricola = itemView.findViewById(R.id.matricolaTesista);
             nome = itemView.findViewById(R.id.nomeTesista);
             cognome = itemView.findViewById(R.id.cognomeTesista);
             tesi = itemView.findViewById(R.id.nomeTesi);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(recyclerViewInterface != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

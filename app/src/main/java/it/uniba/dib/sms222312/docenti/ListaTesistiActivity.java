@@ -52,7 +52,23 @@ public class ListaTesistiActivity extends AppCompatActivity {
         String user = auth.getCurrentUser().getUid();
 
 
-        db.collection("tesisti").whereEqualTo("relatore", user).whereArrayContains("corelatore", user).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("tesisti").whereEqualTo("relatore", user).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null){
+                    Log.e("Firestore error", error.getMessage());
+                    return;
+                }
+                for(DocumentChange dc : value.getDocumentChanges()){
+                    if(dc.getType() == DocumentChange.Type.ADDED){
+                        tesistaArrayList.add(dc.getDocument().toObject(Tesista.class));
+                    }
+                    myAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        db.collection("tesisti").whereEqualTo("corelatore", user).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error != null){

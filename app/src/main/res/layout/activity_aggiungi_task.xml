@@ -66,6 +66,18 @@
             android:onClick="openDatePicker"
             />
 
+        <Button
+            android:id="@+id/caricaFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Carica file"
+            android:layout_marginTop="8dp"/>
+        <Button
+            android:id="@+id/aggiungiTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aggiungi task"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

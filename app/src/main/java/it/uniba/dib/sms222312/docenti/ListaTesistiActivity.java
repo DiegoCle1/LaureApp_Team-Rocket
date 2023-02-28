@@ -106,7 +106,6 @@ public class ListaTesistiActivity extends AppCompatActivity implements ListaRich
 
                     // Ottieni l'ID del documento
                     String documentId = documentSnapshot.getId();
-
                     Intent intent = new Intent(ListaTesistiActivity.this, VisualizzaTesistaActivity.class);
 
                     intent.putExtra("Tesista", documentId);

@@ -51,20 +51,33 @@
             android:textAlignment="center"
             android:textSize="26sp"/>
 
-        <Button
-            android:id="@+id/datePickerButton"
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/date_picker_text_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GEN 01 2020"
-            android:textSize="30sp"
-            android:textColor="@color/md_theme_light_onBackground"
-            style="?android:spinnerStyle"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descrizioneTask"
             android:layout_marginTop="8dp"
-            android:onClick="openDatePicker"
-            />
+            android:hint="Seleziona data">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/date_picker_text_input_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:focusable="false"
+                android:clickable="true"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:onClick="showDatePickerDialog" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/files_list_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
         <Button
             android:id="@+id/caricaFile"

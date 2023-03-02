@@ -13,6 +13,12 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".studenti.RichiestaRicevimentoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".studenti.ListaRicevimentiStudenteActivity"
+            android:exported="false" />
+        <activity
             android:name=".studenti.ListaTaskActivity"
             android:exported="false" />
         <activity

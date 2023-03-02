@@ -12,6 +12,10 @@ public class Task {
 
     public Task(){}
 
+    public Task(String nome) {
+        this.nome = nome;
+    }
+
     public Task(String tesista, String nome, String descrizione, String stato, String scadenza, List<String> file) {
         this.tesista = tesista;
         this.nome = nome;

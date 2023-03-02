@@ -1,8 +1,9 @@
 package it.uniba.dib.sms222312.modelli;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Task {
+public class Task implements Serializable {
     private String tesista;
     private String nome;
     private String descrizione;
@@ -16,11 +17,11 @@ public class Task {
         this.nome = nome;
     }
 
-    public Task(String tesista, String nome, String descrizione, String stato, String scadenza, List<String> file) {
+    public Task(String tesista, String nome, String descrizione, String scadenza, String stato, List<String> file) {
         this.tesista = tesista;
         this.nome = nome;
         this.descrizione = descrizione;
-        this.stato = stato;
+        this.stato = scadenza;
         this.scadenza = scadenza;
         this.file = file;
     }

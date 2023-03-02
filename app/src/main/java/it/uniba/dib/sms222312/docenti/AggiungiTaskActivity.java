@@ -4,16 +4,21 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +26,7 @@ import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +43,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.SchermataCaricamento;
 import it.uniba.dib.sms222312.modelli.Task;
 
 public class AggiungiTaskActivity extends AppCompatActivity {
@@ -48,13 +55,17 @@ public class AggiungiTaskActivity extends AppCompatActivity {
     private Button buttonCaricaDati;
     private HashSet<Uri> fileUris = new HashSet<>();
     String dataScadenza = null;
-
+    // Inizializza il ProgressBar
+    SchermataCaricamento dialog;
     List<String> listaFile = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aggiungi_task);
+        dialog = new SchermataCaricamento(this);
+
+
 
         // Inizializza le variabili
         edtNome = findViewById(R.id.nomeTask);
@@ -65,10 +76,6 @@ public class AggiungiTaskActivity extends AppCompatActivity {
 
         // Ottieni i dati inseriti dall'utente
         String tesista = getIntent().getStringExtra("Tesista");
-
-        // textViewDataScadenza.getText().toString();
-
-
 
         // Aggiungi un listener al pulsante per selezionare i file
         buttonScegliFile.setOnClickListener(view -> scegliFile());
@@ -92,10 +99,9 @@ public class AggiungiTaskActivity extends AppCompatActivity {
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
-        // Mostra il ProgressDialog
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Caricamento dati...");
-        progressDialog.show();
+
+        // Mostra il ProgressBar
+        dialog.show();
 
         // Carica il file selezionato su Firebase Storage
 
@@ -117,14 +123,14 @@ public class AggiungiTaskActivity extends AppCompatActivity {
                                 // Carica l'oggetto "Dato" su Firebase Database
                                 database.collection("task").document().set(task)
                                         .addOnSuccessListener(aVoid -> {
-                                            // Nascondi il ProgressDialog e mostra un messaggio di conferma
-                                            progressDialog.dismiss();
+                                            // Nascondi il ProgressBar
+                                            dialog.dismiss();
                                             Toast.makeText(this, "Dati caricati con successo", Toast.LENGTH_SHORT).show();
                                             finish();
                                         })
                                         .addOnFailureListener(e -> {
                                             // Se si verifica un errore durante il caricamento su Firebase Database, mostra un messaggio di errore
-                                            progressDialog.dismiss();
+                                            dialog.dismiss();
                                             Toast.makeText(this, "Si è verificato un errore", Toast.LENGTH_SHORT).show();
                                         });
                             }
@@ -132,7 +138,9 @@ public class AggiungiTaskActivity extends AppCompatActivity {
                     })
                     .addOnFailureListener(e -> {
                         // Se si verifica un errore durante il caricamento su Firebase Storage, mostra un messaggio di errore
-                        progressDialog.dismiss();
+                        // Nascondi il ProgressBar
+                        dialog.dismiss();
+
                         Toast.makeText(this, "Si è verificato un errore", Toast.LENGTH_SHORT).show();
 
                     });
@@ -188,8 +196,9 @@ public class AggiungiTaskActivity extends AppCompatActivity {
         filesListLayout.removeAllViews();
         for (Uri uri : fileUris) {
             TextView textView = new TextView(this);
-            textView.setText(uri.getLastPathSegment());
+            textView.setText(getFileName(uri));
             textView.setTag(uri);
+            textView.setTextSize(16);
             textView.setOnClickListener(v -> {
                 fileUris.remove((Uri) v.getTag());
                 updateSelectedFilesList();

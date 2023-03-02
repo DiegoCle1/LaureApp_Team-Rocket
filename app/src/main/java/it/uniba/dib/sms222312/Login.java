@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,8 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Button btnLogin = findViewById(R.id.btn_login);
+
+
 
         final LoadingDialog loadingDialog = new LoadingDialog(Login.this);
         btnLogin.setOnClickListener(new View.OnClickListener() {

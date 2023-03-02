@@ -1,14 +1,20 @@
-package it.uniba.dib.sms222312.docenti;
+package it.uniba.dib.sms222312.studenti;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,22 +25,29 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.SchermataCaricamento;
+import it.uniba.dib.sms222312.adapter.AdapterFileCard;
 import it.uniba.dib.sms222312.modelli.Task;
 
-public class VisualizzaTaskActivity extends AppCompatActivity {
+public class VisualizzaTaskStudenteActivity extends AppCompatActivity implements AdapterFileCard.OnItemClickListener{
+
+    private static final int REQUEST_WRITE_STORAGE = 1;
+    SchermataCaricamento dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_visualizza_task);
+        setContentView(R.layout.activity_visualizza_task_studente);
+        dialog = new SchermataCaricamento(this);
 
         Task task = (Task) getIntent().getSerializableExtra("task");
-
         String tesista = task.getTesista();
         String nome = task.getNome();
         String descrizione = task.getDescrizione();
@@ -54,17 +67,12 @@ public class VisualizzaTaskActivity extends AppCompatActivity {
         txtScadenza.setText(scadenza);
         txtStato.setText(stato);
 
-        LinearLayout filesListLayout = findViewById(R.id.files_list_layout);
-        filesListLayout.removeAllViews();
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        for (String file : task.getFile()) {
-            TextView textView = new TextView(this);
-            StorageReference storageRef = storage.getReferenceFromUrl(file);
-            textView.setText(storageRef.getName());
-            textView.setTag(storageRef.getName());
-            Log.d("",storageRef.getName());
-           filesListLayout.addView(textView);
-        }
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        AdapterFileCard adapter = new AdapterFileCard(task.getFile(),this);
+        recyclerView.setAdapter(adapter);
+
+
 
         btnIniziato.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,14 +96,14 @@ public class VisualizzaTaskActivity extends AppCompatActivity {
                                         public void onSuccess(Void aVoid) {
                                             // Modifica del campo "stato" completata con successo
                                             txtStato.setText("Iniziato");
-                                            Toast.makeText(VisualizzaTaskActivity.this,"Task iniziato",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(VisualizzaTaskStudenteActivity.this,"Task iniziato",Toast.LENGTH_SHORT).show();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             // Gestione dell'errore
-                                            Toast.makeText(VisualizzaTaskActivity.this,"Impossibile impostare Task Iniziato",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(VisualizzaTaskStudenteActivity.this,"Impossibile impostare Task Iniziato",Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         } else {
@@ -130,14 +138,14 @@ public class VisualizzaTaskActivity extends AppCompatActivity {
                                         public void onSuccess(Void aVoid) {
                                             // Modifica del campo "stato" completata con successo
                                             txtStato.setText("Completato");
-                                            Toast.makeText(VisualizzaTaskActivity.this,"Task completato",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(VisualizzaTaskStudenteActivity.this,"Task completato",Toast.LENGTH_SHORT).show();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             // Gestione dell'errore
-                                            Toast.makeText(VisualizzaTaskActivity.this,"Impossibile impostare Task Completato",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(VisualizzaTaskStudenteActivity.this,"Impossibile impostare Task Completato",Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         } else {
@@ -149,6 +157,69 @@ public class VisualizzaTaskActivity extends AppCompatActivity {
             }
         });
 
+        
     }
 
+    private StorageReference mStorageRef;
+    private String mFile;
+
+    @Override
+    public void onItemClick(StorageReference storageRef, String file) {
+
+        // controlla se il permesso è già stato concesso
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            // il permesso è già stato concesso
+            downloadfile(storageRef, file);
+        } else {
+            // il permesso non è stato ancora concesso, chiedilo all'utente
+            mStorageRef = storageRef;
+            mFile = file;
+            ActivityCompat.requestPermissions(this, new String[] {android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_STORAGE);
+        }
+
+    }
+
+    // Gestisci la risposta dell'utente ai permessi
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_WRITE_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Il permesso è stato concesso, puoi fare qualcosa con il file
+                downloadfile(mStorageRef, mFile);
+            } else {
+                // Il permesso è stato negato, mostra un messaggio all'utente
+                Toast.makeText(this, "Permesso negato", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    private void downloadfile(StorageReference storageRef, String file) {
+        dialog.show();
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                File publicDownloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                String localFilePath = publicDownloadsDir.getAbsolutePath() + "/" + file;
+                File localFile = new File(localFilePath);
+                Log.d("path",localFilePath);
+                storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        dialog.dismiss();
+                        // il file è stato scaricato con successo nella posizione locale
+                        Toast.makeText(VisualizzaTaskStudenteActivity.this, "file scaricato con successo", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        dialog.dismiss();
+                        // si è verificato un errore durante lo scaricamento del file
+                        Toast.makeText(VisualizzaTaskStudenteActivity.this, "si è verificato un errore", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
 }

@@ -22,7 +22,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.SchermataCaricamento;
 import it.uniba.dib.sms222312.docenti.ListaTesistiActivity;
+import it.uniba.dib.sms222312.docenti.VisualizzaTaskActivity;
 import it.uniba.dib.sms222312.docenti.VisualizzaTesistaActivity;
 import it.uniba.dib.sms222312.modelli.ListaRichiesteInterface;
 import it.uniba.dib.sms222312.modelli.ListaTaskAdapter;
@@ -34,6 +36,7 @@ public class ListaTaskActivity extends AppCompatActivity implements ListaRichies
     RecyclerView recyclerView;
     ArrayList<Task> taskArrayList;
     ListaTaskAdapter myAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +95,9 @@ public class ListaTaskActivity extends AppCompatActivity implements ListaRichies
 
     @Override
     public void onItemClick(int position) {
-
+        Intent intent = new Intent(this, VisualizzaTaskStudenteActivity.class);
+        Task task =taskArrayList.get(position);
+        intent.putExtra("task",  task);
+        startActivity(intent);
     }
 }

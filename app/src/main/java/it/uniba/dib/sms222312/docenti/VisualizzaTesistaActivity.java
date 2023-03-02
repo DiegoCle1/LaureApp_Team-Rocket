@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import it.uniba.dib.sms222312.R;
@@ -86,15 +87,9 @@ public class VisualizzaTesistaActivity extends AppCompatActivity implements List
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(VisualizzaTesistaActivity.this, VisualizzaTaskActivity.class);
-
-        intent.putExtra("Tesista", tesista);
-        intent.putExtra("Nome", taskArrayList.get(position).getNome());
-        intent.putExtra("Descrizione", taskArrayList.get(position).getDescrizione());
-        intent.putExtra("Scadenza", taskArrayList.get(position).getScadenza());
-        intent.putExtra("Stato", taskArrayList.get(position).getStato());
-        //TODO Da aggiungere il getFile()
-
+        Intent intent = new Intent(this, VisualizzaTaskActivity.class);
+        Task task =taskArrayList.get(position);
+        intent.putExtra("task",  task);
         startActivity(intent);
     }
 }

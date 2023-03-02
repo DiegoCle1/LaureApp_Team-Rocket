@@ -39,7 +39,6 @@ public class HomeStudenteFragment extends Fragment implements MyAdapterMenu.OnIt
         bottomNavigationView.setSelectedItemId(R.id.page_1);
         View view = inflater.inflate(R.layout.fragment_home_docente, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;

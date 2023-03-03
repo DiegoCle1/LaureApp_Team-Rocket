@@ -15,12 +15,14 @@ import it.uniba.dib.sms222312.R;
 
 public class RicevimentiAdapter extends RecyclerView.Adapter<RicevimentiAdapter.myViewHolder> {
 
+    private final ListaRichiesteInterface recyclerViewInterface;
     Context context;
     ArrayList<Ricevimento> ricevimentoArrayList;
 
-    public RicevimentiAdapter(Context context, ArrayList<Ricevimento> ricevimentoArrayList) {
+    public RicevimentiAdapter(Context context, ArrayList<Ricevimento> ricevimentoArrayList, ListaRichiesteInterface listaRichiesteInterface) {
         this.context = context;
         this.ricevimentoArrayList = ricevimentoArrayList;
+        this.recyclerViewInterface = listaRichiesteInterface;
     }
 
     @NonNull
@@ -29,7 +31,7 @@ public class RicevimentiAdapter extends RecyclerView.Adapter<RicevimentiAdapter.
 
         View v = LayoutInflater.from(context).inflate(R.layout.itemricevimento,parent,false);
 
-        return new myViewHolder(v);
+        return new myViewHolder(v, recyclerViewInterface);
     }
 
     @Override
@@ -50,9 +52,22 @@ public class RicevimentiAdapter extends RecyclerView.Adapter<RicevimentiAdapter.
 
         TextView data;
 
-        public myViewHolder(@NonNull View itemView) {
+        public myViewHolder(@NonNull View itemView, ListaRichiesteInterface recyclerViewInterface) {
             super(itemView);
             data = itemView.findViewById(R.id.dataRicevimento);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(recyclerViewInterface != null){
+                        int pos = getAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 }

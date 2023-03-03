@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -17,10 +18,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.modelli.ListaRichiesteInterface;
 import it.uniba.dib.sms222312.modelli.RicevimentiAdapter;
 import it.uniba.dib.sms222312.modelli.Ricevimento;
 
-public class VisualizzaRicevimentiTesistaActivity extends AppCompatActivity {
+public class VisualizzaRicevimentiTesistaActivity extends AppCompatActivity implements ListaRichiesteInterface {
 
     RecyclerView recyclerView;
     ArrayList<Ricevimento> ricevimentoArrayList;
@@ -41,7 +43,7 @@ public class VisualizzaRicevimentiTesistaActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         ricevimentoArrayList = new ArrayList<Ricevimento>();
-        myAdapter = new RicevimentiAdapter(VisualizzaRicevimentiTesistaActivity.this, ricevimentoArrayList);
+        myAdapter = new RicevimentiAdapter(VisualizzaRicevimentiTesistaActivity.this, ricevimentoArrayList, this);
         recyclerView.setAdapter(myAdapter);
 
         EventChangeListener();
@@ -64,5 +66,16 @@ public class VisualizzaRicevimentiTesistaActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(VisualizzaRicevimentiTesistaActivity.this, ClickRicevimentoTesistaActivity.class);
+
+        intent.putExtra("Task", ricevimentoArrayList.get(position).getTask());
+        intent.putExtra("Data", ricevimentoArrayList.get(position).getData());
+        intent.putExtra("Dettagli", ricevimentoArrayList.get(position).getDettagli());
+
+        startActivity(intent);
     }
 }

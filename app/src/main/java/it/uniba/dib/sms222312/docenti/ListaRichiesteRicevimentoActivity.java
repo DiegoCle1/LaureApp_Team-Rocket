@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.modelli.ListaRichiesteInterface;
@@ -24,7 +25,7 @@ import it.uniba.dib.sms222312.modelli.RichiesteRicevimentoAdapter;
 
 public class ListaRichiesteRicevimentoActivity extends AppCompatActivity implements ListaRichiesteInterface {
 
-    private String tesisti;
+    private List<String> tesisti;
     FirebaseFirestore db;
     RecyclerView recyclerView;
     ArrayList<Ricevimento> ricevimentoArrayList;
@@ -35,7 +36,7 @@ public class ListaRichiesteRicevimentoActivity extends AppCompatActivity impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_richieste_ricevimento);
 
-        tesisti = getIntent().getStringExtra("Tesista");
+        tesisti = getIntent().getStringArrayListExtra("Tesista");
 
         recyclerView = findViewById(R.id.recyclerRichieste);
         recyclerView.setHasFixedSize(true);
@@ -53,7 +54,7 @@ public class ListaRichiesteRicevimentoActivity extends AppCompatActivity impleme
 
     private void EventChangeListener() {
 
-        db.collection("richiestaricevimento").whereEqualTo("tesista", tesisti).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("richiestaricevimento").whereIn("tesista", tesisti).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error != null){

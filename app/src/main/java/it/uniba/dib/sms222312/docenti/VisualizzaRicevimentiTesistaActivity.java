@@ -16,45 +16,41 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.modelli.ListaRichiesteInterface;
+import it.uniba.dib.sms222312.modelli.RicevimentiAdapter;
 import it.uniba.dib.sms222312.modelli.Ricevimento;
-import it.uniba.dib.sms222312.modelli.RichiesteRicevimentoAdapter;
 
-public class ListaRichiesteRicevimentoActivity extends AppCompatActivity implements ListaRichiesteInterface {
+public class VisualizzaRicevimentiTesistaActivity extends AppCompatActivity implements ListaRichiesteInterface {
 
-    private List<String> tesisti;
-    FirebaseFirestore db;
     RecyclerView recyclerView;
     ArrayList<Ricevimento> ricevimentoArrayList;
-    RichiesteRicevimentoAdapter myAdapter;
+    RicevimentiAdapter myAdapter;
+    FirebaseFirestore db;
+    private String tesista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_richieste_ricevimento);
+        setContentView(R.layout.activity_visualizza_ricevimenti_tesista);
 
-        tesisti = getIntent().getStringArrayListExtra("Tesista");
+        tesista = getIntent().getStringExtra("Tesista");
 
-        recyclerView = findViewById(R.id.recyclerRichieste);
+        recyclerView = findViewById(R.id.recyclerRicevimenti);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         db = FirebaseFirestore.getInstance();
         ricevimentoArrayList = new ArrayList<Ricevimento>();
-        myAdapter = new RichiesteRicevimentoAdapter(ListaRichiesteRicevimentoActivity.this, ricevimentoArrayList, this);
+        myAdapter = new RicevimentiAdapter(VisualizzaRicevimentiTesistaActivity.this, ricevimentoArrayList, this);
         recyclerView.setAdapter(myAdapter);
 
         EventChangeListener();
-
-
     }
 
     private void EventChangeListener() {
-
-        db.collection("richiestaricevimento").whereIn("tesista", tesisti).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("ricevimenti").whereEqualTo("tesista", tesista).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error != null){
@@ -74,24 +70,12 @@ public class ListaRichiesteRicevimentoActivity extends AppCompatActivity impleme
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(ListaRichiesteRicevimentoActivity.this, VisualizzaRichiestaRicevimentoActivity.class);
+        Intent intent = new Intent(VisualizzaRicevimentiTesistaActivity.this, ClickRicevimentoTesistaActivity.class);
 
-        intent.putExtra("Tesista", ricevimentoArrayList.get(position).getTesista());
         intent.putExtra("Task", ricevimentoArrayList.get(position).getTask());
         intent.putExtra("Data", ricevimentoArrayList.get(position).getData());
         intent.putExtra("Dettagli", ricevimentoArrayList.get(position).getDettagli());
 
-        startActivityForResult(intent, position);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            // Codice per "restartare" l'activity
-            Log.d("qualcosa","si");
-            ricevimentoArrayList.remove(requestCode);
-            myAdapter.notifyDataSetChanged();
-        }
+        startActivity(intent);
     }
 }

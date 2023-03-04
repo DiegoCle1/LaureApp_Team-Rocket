@@ -39,6 +39,8 @@ public class MyAdapterMenu extends RecyclerView.Adapter<MyAdapterMenu.MenuViewHo
     public interface OnItemClickListener {
         void onItemClick(cardHome menuItem);
     }
+
+
     @Override
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();

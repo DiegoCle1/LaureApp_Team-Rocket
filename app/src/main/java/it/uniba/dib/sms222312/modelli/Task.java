@@ -17,6 +17,15 @@ public class Task implements Serializable {
         this.nome = nome;
     }
 
+    /**
+     * Costruttore della classe task
+     * @param tesista
+     * @param nome
+     * @param descrizione
+     * @param scadenza
+     * @param stato
+     * @param file
+     */
     public Task(String tesista, String nome, String descrizione, String scadenza, String stato, List<String> file) {
         this.tesista = tesista;
         this.nome = nome;
@@ -26,26 +35,50 @@ public class Task implements Serializable {
         this.file = file;
     }
 
+    /**
+     * restituisce id del tesista
+     * @return String tesista
+     */
     public String getTesista() {
         return tesista;
     }
 
+    /**
+     * restituisce nome del task
+     * @return String nome
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * restituisce descrizione del task
+     * @return String descrizione
+     */
     public String getDescrizione() {
         return descrizione;
     }
 
+    /**
+     * restituisce lo stato del task
+     * @return String stato
+     */
     public String getStato() {
         return stato;
     }
 
+    /**
+     * restituisce la data della scadenza del task
+     * @return String della data scadenza
+     */
     public String getScadenza() {
         return scadenza;
     }
 
+    /**
+     * restituisce la lista del Url dei file assosciati al task
+     * @return List<String>
+     */
     public List<String> getFile() {
         return file;
     }

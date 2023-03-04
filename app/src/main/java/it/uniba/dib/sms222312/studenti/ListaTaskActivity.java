@@ -22,10 +22,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import it.uniba.dib.sms222312.R;
-import it.uniba.dib.sms222312.SchermataCaricamento;
-import it.uniba.dib.sms222312.docenti.ListaTesistiActivity;
-import it.uniba.dib.sms222312.docenti.VisualizzaTaskActivity;
-import it.uniba.dib.sms222312.docenti.VisualizzaTesistaActivity;
 import it.uniba.dib.sms222312.modelli.ListaRichiesteInterface;
 import it.uniba.dib.sms222312.modelli.ListaTaskAdapter;
 import it.uniba.dib.sms222312.modelli.Task;

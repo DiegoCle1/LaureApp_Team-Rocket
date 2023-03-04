@@ -2,13 +2,12 @@ package it.uniba.dib.sms222312.docenti;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,14 +18,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.adapter.AdapterFileCard;
 import it.uniba.dib.sms222312.modelli.Task;
 
-public class VisualizzaTaskActivity extends AppCompatActivity {
+public class VisualizzaTaskDocenteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +52,7 @@ public class VisualizzaTaskActivity extends AppCompatActivity {
         txtScadenza.setText(scadenza);
         txtStato.setText(stato);
 
-        LinearLayout filesListLayout = findViewById(R.id.files_list_layout);
+       /* LinearLayout filesListLayout = findViewById(R.id.files_list_layout);
         filesListLayout.removeAllViews();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         for (String file : task.getFile()) {
@@ -64,7 +62,12 @@ public class VisualizzaTaskActivity extends AppCompatActivity {
             textView.setTag(storageRef.getName());
             Log.d("",storageRef.getName());
            filesListLayout.addView(textView);
-        }
+        }*/
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        AdapterFileCard adapter = new AdapterFileCard(task.getFile());
+        recyclerView.setAdapter(adapter);
 
         btnIniziato.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,14 +91,14 @@ public class VisualizzaTaskActivity extends AppCompatActivity {
                                         public void onSuccess(Void aVoid) {
                                             // Modifica del campo "stato" completata con successo
                                             txtStato.setText("Iniziato");
-                                            Toast.makeText(VisualizzaTaskActivity.this,"Task iniziato",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(VisualizzaTaskDocenteActivity.this,"Task iniziato",Toast.LENGTH_SHORT).show();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             // Gestione dell'errore
-                                            Toast.makeText(VisualizzaTaskActivity.this,"Impossibile impostare Task Iniziato",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(VisualizzaTaskDocenteActivity.this,"Impossibile impostare Task Iniziato",Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         } else {
@@ -130,14 +133,14 @@ public class VisualizzaTaskActivity extends AppCompatActivity {
                                         public void onSuccess(Void aVoid) {
                                             // Modifica del campo "stato" completata con successo
                                             txtStato.setText("Completato");
-                                            Toast.makeText(VisualizzaTaskActivity.this,"Task completato",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(VisualizzaTaskDocenteActivity.this,"Task completato",Toast.LENGTH_SHORT).show();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             // Gestione dell'errore
-                                            Toast.makeText(VisualizzaTaskActivity.this,"Impossibile impostare Task Completato",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(VisualizzaTaskDocenteActivity.this,"Impossibile impostare Task Completato",Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         } else {

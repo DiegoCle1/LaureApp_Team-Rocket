@@ -41,7 +41,7 @@
             android:name=".studenti.ListaTaskActivity"
             android:exported="false" />
         <activity
-            android:name=".docenti.VisualizzaTaskActivity"
+            android:name=".docenti.VisualizzaTaskDocenteActivity"
             android:exported="false" />
         <activity
             android:name=".docenti.AggiungiTaskActivity"

@@ -44,7 +44,7 @@ public class VisualizzaTaskStudenteActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_visualizza_task_studente);
+        setContentView(R.layout.activity_visualizza_task);
         dialog = new SchermataCaricamento(this);
 
         Task task = (Task) getIntent().getSerializableExtra("task");

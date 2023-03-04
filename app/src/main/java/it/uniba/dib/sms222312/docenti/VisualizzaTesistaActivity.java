@@ -17,7 +17,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import it.uniba.dib.sms222312.R;
@@ -87,7 +86,7 @@ public class VisualizzaTesistaActivity extends AppCompatActivity implements List
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(this, VisualizzaTaskActivity.class);
+        Intent intent = new Intent(this, VisualizzaTaskDocenteActivity.class);
         Task task =taskArrayList.get(position);
         intent.putExtra("task",  task);
         startActivity(intent);

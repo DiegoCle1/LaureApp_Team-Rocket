@@ -3,6 +3,8 @@ package it.uniba.dib.sms222312.docenti;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -44,9 +46,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.SchermataCaricamento;
+import it.uniba.dib.sms222312.adapter.AdapterFileCard;
 import it.uniba.dib.sms222312.modelli.Task;
 
-public class AggiungiTaskActivity extends AppCompatActivity {
+public class AggiungiTaskActivity extends AppCompatActivity implements AdapterFileCard.OnItemClickListener1{
 
     private EditText edtNome;
     private EditText edtDescrizione;
@@ -104,49 +107,54 @@ public class AggiungiTaskActivity extends AppCompatActivity {
         dialog.show();
 
         // Carica il file selezionato su Firebase Storage
-
-
         // carica il file
-        for (Uri fileUri : fileUris) {
-            StorageReference storageRef = storage.getReference().child(tesista+"/" + getFileName(fileUri));
-            storageRef.putFile(fileUri)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        // il file è stato caricato con successo
-                        // ottieni l'URL del file appena caricato
-                        storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                            // fai qualcosa con l'URL del file, ad esempio salvarlo su Firestore
-                            listaFile.add(uri.toString());
-                            if(listaFile.size() == fileUris.size()){
-                                // Crea un oggetto "Task" con i dati inseriti dall'utente e l'URL del file
-                                Task task = new Task(tesista, nome, descrizione, dataScadenza, "Non iniziato", listaFile);
+        if(!fileUris.isEmpty()) {
+            for (Uri fileUri : fileUris) {
+                StorageReference storageRef = storage.getReference().child(tesista + "/" + getFileName(fileUri));
+                storageRef.putFile(fileUri)
+                        .addOnSuccessListener(taskSnapshot -> {
+                            // il file è stato caricato con successo
+                            // ottieni l'URL del file appena caricato
+                            storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                                // fai qualcosa con l'URL del file, ad esempio salvarlo su Firestore
+                                listaFile.add(uri.toString());
+                                if (listaFile.size() == fileUris.size()) {
+                                    // Crea un oggetto "Task" con i dati inseriti dall'utente e l'URL del file
+                                    Task task = new Task(tesista, nome, descrizione, dataScadenza, "Non iniziato", listaFile);
+                                    uploadTask(database, task);
+                                }
+                            });
+                        })
+                        .addOnFailureListener(e -> {
+                            // Se si verifica un errore durante il caricamento su Firebase Storage, mostra un messaggio di errore
+                            // Nascondi il ProgressBar
 
-                                // Carica l'oggetto "Dato" su Firebase Database
-                                database.collection("task").document().set(task)
-                                        .addOnSuccessListener(aVoid -> {
-                                            // Nascondi il ProgressBar
-                                            dialog.dismiss();
-                                            Toast.makeText(this, "Dati caricati con successo", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            // Se si verifica un errore durante il caricamento su Firebase Database, mostra un messaggio di errore
-                                            dialog.dismiss();
-                                            Toast.makeText(this, "Si è verificato un errore", Toast.LENGTH_SHORT).show();
-                                        });
-                            }
+                            Toast.makeText(this, "Si è verificato un errore", Toast.LENGTH_SHORT).show();
+
                         });
-                    })
-                    .addOnFailureListener(e -> {
-                        // Se si verifica un errore durante il caricamento su Firebase Storage, mostra un messaggio di errore
-                        // Nascondi il ProgressBar
-                        dialog.dismiss();
-
-                        Toast.makeText(this, "Si è verificato un errore", Toast.LENGTH_SHORT).show();
-
-                    });
+            }
+        }else{
+            Task task = new Task(tesista, nome, descrizione, dataScadenza, "Non iniziato", listaFile);
+            uploadTask(database, task);
         }
 
 
+    }
+
+    private void uploadTask(FirebaseFirestore database, Task task) {
+        // Carica l'oggetto "Dato" su Firebase Database
+        database.collection("task").document().set(task)
+                .addOnSuccessListener(aVoid -> {
+                    // Nascondi il ProgressBar
+                    dialog.dismiss();
+                    Toast.makeText(this, "Dati caricati con successo", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    // Se si verifica un errore durante il caricamento su Firebase Database, mostra un messaggio di errore
+                    dialog.dismiss();
+                    Toast.makeText(this, "Si è verificato un errore", Toast.LENGTH_SHORT).show();
+                });
     }
 
 
@@ -192,19 +200,19 @@ public class AggiungiTaskActivity extends AppCompatActivity {
     }
 
     private void updateSelectedFilesList() {
-        LinearLayout filesListLayout = findViewById(R.id.files_list_layout);
-        filesListLayout.removeAllViews();
+
+        ArrayList<String> myList = new ArrayList<>();
+        ArrayList<Uri> myListUri = new ArrayList<>();
         for (Uri uri : fileUris) {
-            TextView textView = new TextView(this);
-            textView.setText(getFileName(uri));
-            textView.setTag(uri);
-            textView.setTextSize(16);
-            textView.setOnClickListener(v -> {
-                fileUris.remove((Uri) v.getTag());
-                updateSelectedFilesList();
-            });
-            filesListLayout.addView(textView);
+            myList.add(getFileName(uri));
+            myListUri.add(uri);
         }
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.removeAllViews();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        AdapterFileCard adapter = new AdapterFileCard(myList, myListUri, this);
+        recyclerView.setAdapter(adapter);
+
         buttonScegliFile.setText("Scegli file");
     }
 
@@ -228,5 +236,11 @@ public class AggiungiTaskActivity extends AppCompatActivity {
             }
         }
         return result;
+    }
+
+    @Override
+    public void onItemClick1(Uri file) {
+        fileUris.remove((Uri) file);
+        updateSelectedFilesList();
     }
 }

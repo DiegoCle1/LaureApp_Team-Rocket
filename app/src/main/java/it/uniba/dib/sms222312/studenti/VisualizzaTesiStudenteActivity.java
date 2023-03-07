@@ -65,6 +65,7 @@ public class VisualizzaTesiStudenteActivity extends AppCompatActivity {
         Button classificaButton = findViewById(R.id.classifica);
         Button richiediButton = findViewById(R.id.richiesta);
         Button condividiButton = findViewById(R.id.condividi);
+        Button contattaButton = findViewById(R.id.contatta);
 
         String text ="Nome: " + nome + " Corso: " + corso + " Media: " + media + " Durata: " + durata + " ore Descrizione: " + descrizione;
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
@@ -167,6 +168,31 @@ public class VisualizzaTesiStudenteActivity extends AppCompatActivity {
                     startActivity(Intent.createChooser(shareIntent, "Condividi immagine"));
                 }
 
+            }
+        });
+
+        contattaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                database.collection("utente").document(docente).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String docentemail = documentSnapshot.getString("email");
+
+                        Intent intent = new Intent(Intent.ACTION_SENDTO);
+                        intent.setData(Uri.parse("mailto:"));
+                        Log.d("email", docentemail);
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{docentemail});
+                        intent.putExtra(Intent.EXTRA_SUBJECT, nome);
+
+                        if(intent.resolveActivity(getPackageManager()) != null){
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(VisualizzaTesiStudenteActivity.this, "Nessuna app email installata", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
             }
         });
     }

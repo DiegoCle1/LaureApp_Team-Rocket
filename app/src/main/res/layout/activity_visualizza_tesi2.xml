@@ -104,6 +104,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/condividi"
             android:text="Condividi"/>
+
+        <Button
+            android:id="@+id/contatta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contatta docente"
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

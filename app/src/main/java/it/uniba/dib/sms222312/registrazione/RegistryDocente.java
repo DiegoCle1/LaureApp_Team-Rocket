@@ -70,9 +70,8 @@ public class RegistryDocente extends AppCompatActivity {
                             if(docente.registraDocente(db,RegistryDocente.this))
                                 loadingDialog.dismissDialog();
                         } else {
-                            // Creazione di un nuovo utente non r
-                            // iuscita, mostra un messaggio di errore.
-                            Toast.makeText(RegistryDocente.this, R.string.errorEmailPass,
+                            // Creazione di un nuovo utente non r                            // iuscita, mostra un messaggio di errore.
+                            Toast.makeText(RegistryDocente.this, task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                             loadingDialog.dismissDialog();
                         }

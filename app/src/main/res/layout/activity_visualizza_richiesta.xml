@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".docenti.VisualizzaRichiestaActivity">
+    tools:context=".utenti.docenti.VisualizzaRichiestaDialog">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,6 +12,17 @@
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Studente" />
+
+        <TextView
+            android:id="@+id/studente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Studente" />
 
         <TextView
             android:layout_width="wrap_content"

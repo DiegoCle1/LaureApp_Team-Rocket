@@ -5,8 +5,17 @@ public class Ricevimento {
     private String task;
     private String data;
     private String dettagli;
+    private StatoRicevimento stato;
 
     public Ricevimento(){}
+
+    public Ricevimento(String tesista, String task, String data, String dettagli, StatoRicevimento stato) {
+        this.tesista = tesista;
+        this.task = task;
+        this.data = data;
+        this.dettagli = dettagli;
+        this.stato= stato;
+    }
 
     public Ricevimento(String tesista, String task, String data, String dettagli) {
         this.tesista = tesista;
@@ -25,6 +34,10 @@ public class Ricevimento {
 
     public String getData() {
         return data;
+    }
+
+    public StatoRicevimento getStato(){
+        return stato;
     }
 
     public String getDettagli() {

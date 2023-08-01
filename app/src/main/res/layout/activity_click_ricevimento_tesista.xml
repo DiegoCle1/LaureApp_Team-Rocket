@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".docenti.ClickRicevimentoTesistaActivity">
+    tools:context=".utenti.docenti.ClickRicevimentoTesistaActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:text="Task" />
 
         <TextView
-            android:id="@+id/task"
+            android:id="@+id/taskTesi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Task" />

@@ -1,10 +1,15 @@
 package it.uniba.dib.sms222312.modelli;
 
-public class Tesi {
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.io.Serializable;
+
+public class Tesi implements Serializable {
+    private String idTesi;
     private String docente;
     private String nome;
     private String corso;
-    private String ore;
+    private String durata;
     private String media;
     private String descrizione;
 
@@ -13,9 +18,21 @@ public class Tesi {
         this.docente = docente;
         this.nome = nome;
         this.corso = corso;
-        this.ore = oreDurata;
+        this.durata = oreDurata;
         this.media = mediaVoti;
         this.descrizione = descrizione;
+    }
+
+    public Tesi(String idTesi, FirebaseFirestore db) {
+
+    }
+
+    public String getIdTesi() {
+        return idTesi;
+    }
+
+    public void setIdTesi(String idTesi) {
+        this.idTesi = idTesi;
     }
 
     public String getDocente() {
@@ -30,17 +47,18 @@ public class Tesi {
         return corso;
     }
 
-    public String getOre() {
-        return ore;
+    public String getDurata() {
+        return durata;
     }
 
     @Override
     public String toString() {
         return "Tesi{" +
                 "docente='" + docente + '\'' +
+                ", id='" + idTesi + '\'' +
                 ", nome='" + nome + '\'' +
                 ", corso='" + corso + '\'' +
-                ", ore='" + ore + '\'' +
+                ", ore='" + durata + '\'' +
                 ", media='" + media + '\'' +
                 ", descrizione='" + descrizione + '\'' +
                 '}';

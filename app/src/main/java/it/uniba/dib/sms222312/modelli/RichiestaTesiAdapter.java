@@ -55,6 +55,7 @@ public class RichiestaTesiAdapter extends RecyclerView.Adapter<RichiestaTesiAdap
                 holder.matricola.setText(studente.getMatricola());
                 holder.nome.setText(studente.getNome());
                 holder.cognome.setText(studente.getCognome());
+
             }
         });
 

@@ -4,46 +4,54 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import it.uniba.dib.sms222312.R;
 
-public class TesiAdapter extends RecyclerView.Adapter<TesiAdapter.TesiViewHolder> {
-    private final RecyclerViewInterface recyclerViewInterface;
+public class TesiAdapter<T> extends RecyclerView.Adapter<TesiAdapter.TesiViewHolder> {
+    private RecyclerViewInterface recyclerViewInterface;
+    private String type = Tesi.class.getName();
     Context context;
-    ArrayList<Tesi> list;
+    ArrayList<T> list;
 
-    public TesiAdapter(Context context, ArrayList<Tesi> list, RecyclerViewInterface recyclerViewInterface) {
+    public TesiAdapter(Context context, ArrayList<T> list, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.list = list;
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
-    public void setFilteredList(ArrayList<Tesi> filteredList){
+    public void setFilteredList(ArrayList<T> filteredList){
         this.list = filteredList;
         notifyDataSetChanged();
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @NonNull
     @Override
     public TesiViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.itemtesi,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.card_tesi,parent,false);
         return new TesiViewHolder(v, recyclerViewInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TesiViewHolder holder, int position) {
 
-        Tesi tesi = list.get(position);
-        holder.nomeTesi.setText(tesi.getNome());
+        if(type.equals(Tesi.class.getName())){
+            Tesi tesi = (Tesi) list.get(position);
+            holder.nomeTesi.setText(tesi.getNome());
+        }else{
+            Classifica tesi = (Classifica) list.get(position);
+            holder.nomeTesi.setText(tesi.getNome());
+        }
+        //
     }
 
     @Override

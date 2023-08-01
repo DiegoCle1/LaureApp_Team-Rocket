@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.uniba.dib.sms222312.Login;
+import it.uniba.dib.sms222312.registrazione.Login;
 import it.uniba.dib.sms222312.R;
 
 public class Docente {
@@ -72,6 +72,7 @@ public class Docente {
                         Intent intent = new Intent(activity , Login.class);
                         activity.startActivity(intent);
                         activity.finish();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

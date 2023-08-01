@@ -4,13 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import it.uniba.dib.sms222312.LoadingDialog;
 import it.uniba.dib.sms222312.R;
-import it.uniba.dib.sms222312.UpdateSpinner;
+import it.uniba.dib.sms222312.utenti.UpdateSpinner;
 import it.uniba.dib.sms222312.modelli.Studente;
 
 public class Registry extends AppCompatActivity {
@@ -99,7 +97,7 @@ private final LoadingDialog loadingDialog = new LoadingDialog(Registry.this);
                                 loadingDialog.dismissDialog();
                         } else {
                             // Creazione di un nuovo utente non riuscita, mostra un messaggio di errore.
-                            Toast.makeText(Registry.this, R.string.errorEmailPass,
+                            Toast.makeText(Registry.this, task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                             loadingDialog.dismissDialog();
                         }

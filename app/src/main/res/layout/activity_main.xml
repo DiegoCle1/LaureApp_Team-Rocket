@@ -7,57 +7,76 @@
     android:orientation="vertical"
     tools:context=".registrazione.Registry">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        tools:context=".MainActivity">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/home_registraDoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#2582E4"
-            android:text="Registra docente"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/textView"
-            android:padding="12dp"
-            android:layout_marginTop="5dp"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/home_registra"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/home_registraDoc"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/home_registraDoc"
-        android:layout_centerHorizontal="true"
-        android:background="#3684d7"
-        android:padding="12dp"
-        android:text="Regista studente"
-        android:layout_marginTop="5dp"/>
+        android:padding="16dp"
+        android:text="@string/registrazione_docente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_registra"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintWidth_percent="0.5" />
 
-    <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/home_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#3684d7"
-            android:text="Login"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/home_registra"
-            android:padding="12dp"
-        android:layout_marginTop="5dp"/>
+    <Button
+        android:id="@+id/home_registra"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:padding="16dp"
+        android:text="@string/registraStudente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <Button
+        android:id="@+id/home_login"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/accedi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_registraDoc"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintWidth_percent="0.5" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
         android:text="Welcome"
-        android:textSize="24sp"
-        android:textStyle="bold"/>
+        android:textSize="200px"
+        android:textStyle="bold"
+        android:textColor="@color/md_theme_light_onPrimaryContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/ospite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ospite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_login"
+        app:layout_constraintVertical_bias="0" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

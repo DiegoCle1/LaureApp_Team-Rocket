@@ -5,12 +5,33 @@ public class Classifica {
     private String nome;
     private String durata;
     private String media;
+    private int pos;
+    private String idTesi;
 
-    public Classifica(String utente, String nome, String durata, String media) {
+    /**
+     * Costruttore della classe task
+     * @param pos
+     * @param idTesi
+     * @param utente
+     * @param nome
+     * @param durata
+     * @param media
+     */
+    public Classifica(int pos, String idTesi, String utente, String nome, String durata, String media) {
         this.utente = utente;
+        this.pos=pos;
+        this.idTesi=idTesi;
         this.nome = nome;
         this.durata = durata;
         this. media = media;
+    }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
     }
 
     public String getDurata() {
@@ -24,6 +45,14 @@ public class Classifica {
     public Classifica() {
     }
 
+    public String getIdTesi() {
+        return idTesi;
+    }
+
+    public void setIdTesi(String idTesi) {
+        this.idTesi = idTesi;
+    }
+
     @Override
     public String toString() {
         return "Classifica{" +
@@ -31,6 +60,7 @@ public class Classifica {
                 ", nome='" + nome + '\'' +
                 ", durata='" + durata + '\'' +
                 ", media='" + media + '\'' +
+                ", pos='" + pos + '\'' +
                 '}';
     }
 

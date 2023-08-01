@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Window;
 
-import it.uniba.dib.sms222312.docenti.AggiungiTaskActivity;
-
 public class SchermataCaricamento {
     private Dialog dialog;
 

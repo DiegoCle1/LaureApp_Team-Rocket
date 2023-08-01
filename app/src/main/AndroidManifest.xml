@@ -13,81 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name=".docenti.ClickRicevimentoTesistaActivity"
+            android:name=".utenti.studenti.HomeStudente"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false" />
         <activity
-            android:name=".docenti.VisualizzaRicevimentiTesistaActivity"
+            android:name=".utenti.docenti.HomeDocente"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false" />
         <activity
-            android:name=".studenti.VisualizzaTaskStudenteActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".docenti.VisualizzaRichiestaRicevimentoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".docenti.ListaRichiesteRicevimentoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".docenti.ListaRicevimentiDocenteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".studenti.RichiestaRicevimentoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".studenti.ListaRicevimentiStudenteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".studenti.ListaTaskActivity"
-            android:exported="false" />
-        <activity
-            android:name=".docenti.VisualizzaTaskDocenteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".docenti.AggiungiTaskActivity"
-            android:exported="false" />
-        <activity
-            android:name=".docenti.VisualizzaTesistaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".docenti.ListaTesistiActivity"
-            android:exported="false" />
-        <activity
-            android:name=".docenti.VisualizzaRichiestaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".docenti.ListaRichiesteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".studenti.InvioRichiestaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".studenti.VisualizzaClassificaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".studenti.VisualizzaTesiStudenteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".studenti.CercaTesiActivity"
-            android:exported="false" />
-        <activity
-            android:name=".docenti.ModificaTesiActivity"
-            android:exported="false" />
-        <activity
-            android:name=".docenti.VisualizzaTesiActivity"
-            android:exported="false" />
-        <activity
-            android:name=".studenti.HomeStudente"
-            android:exported="false" />
-        <activity
-            android:name=".docenti.HomeDocente"
-            android:exported="false" />
-        <activity
-            android:name=".Login"
+            android:name=".registrazione.Login"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -95,6 +32,7 @@
         </activity>
         <activity
             android:name=".registrazione.RegistryDocente"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -105,7 +43,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -115,11 +52,21 @@
         </activity>
         <activity
             android:name=".registrazione.Registry"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".utenti.Ospite"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+
+        <activity
+            android:name=".utenti.VisualizzaTesiOspite"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -57,12 +57,13 @@ public class TesistiAdapter extends RecyclerView.Adapter<TesistiAdapter.tesistiV
                 holder.matricola.setText(studente.getMatricola());
                 holder.nome.setText(studente.getNome());
                 holder.cognome.setText(studente.getCognome());
+
             }
         });
 
         // Ottiene il riferimento al documento da caricare
         DocumentReference docRef2 = FirebaseFirestore.getInstance().collection("tesi").document(tesista.getTesi());
-
+        if(docRef2!=null)
         // Legge i dati del documento
         docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -70,6 +71,7 @@ public class TesistiAdapter extends RecyclerView.Adapter<TesistiAdapter.tesistiV
                 // Converte i dati del documento in un oggetto MyObject
                 Tesi tesi = documentSnapshot.toObject(Tesi.class);
                 holder.tesi.setText(tesi.getNome());
+
             }
         });
 

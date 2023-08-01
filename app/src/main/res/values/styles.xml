@@ -28,6 +28,16 @@
         <item name="strokeWidth">@dimen/cardview_compat_inset_shadow</item>
     </style>
 
+    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+
+        <item name="titleTextAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="subtitleTextAppearance">@style/TextAppearance.AppCompat.Title</item>
+
+
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.AppCompat.Title</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.AppCompat.Title</item>
+    </style>
+
 
 
 

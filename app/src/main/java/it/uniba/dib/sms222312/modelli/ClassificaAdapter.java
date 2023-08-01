@@ -15,21 +15,24 @@ import it.uniba.dib.sms222312.R;
 
 public class ClassificaAdapter extends RecyclerView.Adapter<ClassificaAdapter.MyViewHolder>{
 
+    private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     ArrayList<Classifica> classificaArrayList;
 
-    public ClassificaAdapter(Context context, ArrayList<Classifica> classificaArrayList) {
+    public ClassificaAdapter(Context context, ArrayList<Classifica> classificaArrayList, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.classificaArrayList = classificaArrayList;
+        this.recyclerViewInterface = recyclerViewInterface;
+
     }
 
     @NonNull
     @Override
     public ClassificaAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(context).inflate(R.layout.itemtesi,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.card_task,parent,false);
 
-        return new MyViewHolder(v);
+        return new MyViewHolder(v, recyclerViewInterface);
     }
 
     @Override
@@ -50,9 +53,21 @@ public class ClassificaAdapter extends RecyclerView.Adapter<ClassificaAdapter.My
 
         TextView nome;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             nome = itemView.findViewById(R.id.nomeTesi);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(recyclerViewInterface != null){
+                        int pos = getAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 }

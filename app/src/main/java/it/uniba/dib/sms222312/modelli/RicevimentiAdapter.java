@@ -29,7 +29,7 @@ public class RicevimentiAdapter extends RecyclerView.Adapter<RicevimentiAdapter.
     @Override
     public RicevimentiAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(context).inflate(R.layout.itemricevimento,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.card_ricevimenti,parent,false);
 
         return new myViewHolder(v, recyclerViewInterface);
     }
@@ -39,7 +39,18 @@ public class RicevimentiAdapter extends RecyclerView.Adapter<RicevimentiAdapter.
 
         Ricevimento ricevimento = ricevimentoArrayList.get(position);
 
+        if(ricevimento.getData() != null)
         holder.data.setText(ricevimento.getData());
+
+        if(ricevimento.getTask() != null)
+        holder.task.setText(ricevimento.getTask());
+
+        if(ricevimento.getDettagli() != null)
+        holder.dettagli.setText(ricevimento.getDettagli());
+
+        if(ricevimento.getStato() != null)
+        holder.stato.setText(ricevimento.getStato().toString());
+
 
     }
 
@@ -51,10 +62,17 @@ public class RicevimentiAdapter extends RecyclerView.Adapter<RicevimentiAdapter.
     public static class myViewHolder extends RecyclerView.ViewHolder{
 
         TextView data;
+        TextView task;
+
+        TextView stato;
+        TextView dettagli;
 
         public myViewHolder(@NonNull View itemView, ListaRichiesteInterface recyclerViewInterface) {
             super(itemView);
             data = itemView.findViewById(R.id.dataRicevimento);
+            task = itemView.findViewById(R.id.taskRicevimento);
+            dettagli = itemView.findViewById(R.id.dettagli);
+            stato = itemView.findViewById(R.id.statoRicevimenti);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,11 +29,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.SchermataCaricamento;
 import it.uniba.dib.sms222312.modelli.ListaRichiesteInterface;
 import it.uniba.dib.sms222312.modelli.RichiestaTesi;
 import it.uniba.dib.sms222312.modelli.RichiestaTesiAdapter;
 
-public class ListaRichiesteActivity extends Fragment implements ListaRichiesteInterface {
+public class ListaRichiesteTesiFragment extends Fragment implements ListaRichiesteInterface {
 
     RecyclerView recyclerView;
     ArrayList<RichiestaTesi> richiestaTesiArrayList;
@@ -83,41 +84,46 @@ public class ListaRichiesteActivity extends Fragment implements ListaRichiesteIn
             switch (direction){
                 case ItemTouchHelper.LEFT:
                 case ItemTouchHelper.RIGHT:
-                    Query query = db.collection("richiestatesi").whereEqualTo("descrizione", richiestaTesiArrayList.get(position).getDescrizione()).whereEqualTo("docente", richiestaTesiArrayList.get(position).getDocente()).whereEqualTo("studente", richiestaTesiArrayList.get(position).getStudente()).whereEqualTo("tesi", richiestaTesiArrayList.get(position).getTesi());
-                    query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            if (!queryDocumentSnapshots.isEmpty()) {
-                                // Ottieni il primo documento corrispondente
-                                DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                    new SchermataCaricamento().conferma(getContext(), getString(R.string.titoloConferma), getString(R.string.msgConferma))
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Query query = db.collection("richiestatesi").whereEqualTo("descrizione", richiestaTesiArrayList.get(position).getDescrizione()).whereEqualTo("docente", richiestaTesiArrayList.get(position).getDocente()).whereEqualTo("studente", richiestaTesiArrayList.get(position).getStudente()).whereEqualTo("tesi", richiestaTesiArrayList.get(position).getTesi());
+                                    query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                            if (!queryDocumentSnapshots.isEmpty()) {
+                                                // Ottieni il primo documento corrispondente
+                                                DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
 
-                                // Ottieni l'ID del documento
-                                String documentId = documentSnapshot.getId();
+                                                // Ottieni l'ID del documento
+                                                String documentId = documentSnapshot.getId();
 
-                                // Usa l'ID del documento per fare altre operazioni su di esso
-                                db.collection("richiestatesi").document(documentId)
-                                        .delete()
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Log.d("msg", "DocumentSnapshot successfully deleted!");
+                                                // Usa l'ID del documento per fare altre operazioni su di esso
+                                                db.collection("richiestatesi").document(documentId)
+                                                        .delete()
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Log.d("msg", "DocumentSnapshot successfully deleted!");
 
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.w("msg", "Error deleting document", e);
+                                                            }
+                                                        });
+                                            } else {
+                                                // Nessun documento corrispondente trovato
                                             }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.w("msg", "Error deleting document", e);
-                                            }
-                                        });
-                            } else {
-                                // Nessun documento corrispondente trovato
-                            }
 
-                        }
-                    });
-                    richiestaTesiArrayList.remove(position);
-                    myAdapter.notifyItemRemoved(position);
+                                        }
+                                    });
+                                    richiestaTesiArrayList.remove(position);
+                                    myAdapter.notifyItemRemoved(position);
+                                }}).create().show();
                     break;
             }
         }

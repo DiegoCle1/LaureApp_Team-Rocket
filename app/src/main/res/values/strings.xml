@@ -18,7 +18,7 @@
     <string name="errorEmailPass">Email o password non validi</string>
     <string name="errorMatricola">Matricola non valida</string>
     <string name="errorCampiObbligatori">Tutti i campi sono obbligatori</string>
-    <string name="errorCorso">Inserire il corso</string>
+    <string name="errorDip">Inserire il dipartimento</string>
     <string name="successRegistrazione">Registrazione avvenuta con successo</string>
     <string name="selezionaDip">Seleziona dipartimento</string>
     <string name="selezionaCorso">Seleziona corso</string>
@@ -70,5 +70,8 @@
     <string name="ospite">Visualizza tesi</string>
     <string name="themaChiaro">Tema chiaro</string>
     <string name="themaScuro">Tema scuro</string>
+    <string name="msgConferma">Sei sicuro di voler procedere?</string>
+    <string name="titoloConferma">Conferma</string>
+    <string name="mediaErr">Valore media non valido</string>
 
 </resources>

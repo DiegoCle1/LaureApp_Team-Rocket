@@ -19,13 +19,24 @@ import it.uniba.dib.sms222312.R;
 public class Studente {
     private String id;
     private String matricola;
+
+    private String dipartimento;
     private String email;
     private String nome;
     private String cognome;
     private String corso;
 
-    public Studente(){}
 
+
+    public Studente(String id, String matricola, String email, String nome, String cognome,String dipartimento ,String corso) {
+        this.id = id;
+        this.matricola = matricola;
+        this.email = email;
+        this.nome = nome;
+        this.dipartimento = dipartimento;
+        this.cognome = cognome;
+        this.corso = corso;
+    }
     public Studente(String id, String matricola, String email, String nome, String cognome, String corso) {
         this.id = id;
         this.matricola = matricola;
@@ -64,6 +75,7 @@ public class Studente {
         userDb.put("matricola", this.matricola);
         userDb.put("nome", this.nome);
         userDb.put("cognome", this.cognome);
+        userDb.put("dipartimento", this.dipartimento);
         userDb.put("corso", this.corso);
         userDb.put("tipo", "studente");
         db.collection("utente").document(this.id).set(userDb)

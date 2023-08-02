@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -62,26 +63,32 @@ public class RegistraTesiFragment extends DialogFragment {
                         EditText edtOre = view.findViewById(R.id.durata);
                         String ore = edtOre.getText().toString();
                         EditText edtMedia = view.findViewById(R.id.media);
-                        String media = edtMedia.getText().toString();
+                        int media = Integer.parseInt(edtMedia.getText().toString());
                         EditText edtDesc = view.findViewById(R.id.descrizione);
                         String descrizione = edtDesc.getText().toString();
-
-                        AutoCompleteTextView coursesSpinner = view.findViewById(R.id.spinner_corso);
+                        AutoCompleteTextView coursesSpinner = view.findViewById(R.id.spinner_dipartimento);
                         Object selectedItem = coursesSpinner.getText();
+                        String dib = selectedItem.toString();
+                        coursesSpinner = view.findViewById(R.id.spinner_corso);
+                        selectedItem = coursesSpinner.getText();
                         String corso = selectedItem.toString();
+                        Log.d("aa", ""+media);
                         // Verifica che tutti i campi siano stati compilati
-                        if (nome.isEmpty() || ore.isEmpty() || media.isEmpty() || descrizione.isEmpty()) {
-                            Toast.makeText(getActivity(), "Tutti i campi sono obbligatori", Toast.LENGTH_SHORT).show();
+                        if (nome.isEmpty() || ore.isEmpty()  || descrizione.isEmpty()) {
+                            Toast.makeText(getActivity(), R.string.errorCampiObbligatori, Toast.LENGTH_SHORT).show();
                             alertDialog.setCancelable(false);
-                        } else if(corso.equals("Seleziona corso")){
-                            Toast.makeText(getActivity(), "Inserire il corso", Toast.LENGTH_SHORT).show();
+                        } else if(dib.isEmpty()){
+                            Toast.makeText(getActivity(), R.string.errorDip, Toast.LENGTH_SHORT).show();
                             alertDialog.setCancelable(false);
-                        }else {
-                            FirebaseAuth auth = FirebaseAuth.getInstance();
-                            String user = auth.getCurrentUser().getUid();
-                            tesi = new Tesi(user, nome, corso, ore, media, descrizione);
-                            registraTesi(tesi);
-                            dialog.dismiss();
+                        }else if(media<18 || media>30) {
+                            Toast.makeText(getActivity(), R.string.mediaErr, Toast.LENGTH_SHORT).show();
+                            alertDialog.setCancelable(false);
+                        }else{
+                                FirebaseAuth auth = FirebaseAuth.getInstance();
+                                String user = auth.getCurrentUser().getUid();
+                                tesi = new Tesi(user, nome, dib,corso, ore, String.valueOf(media), descrizione);
+                                registraTesi(tesi);
+                                dialog.dismiss();
                         }
                     }
                 })

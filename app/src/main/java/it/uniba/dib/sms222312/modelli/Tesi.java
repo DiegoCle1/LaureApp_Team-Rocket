@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.Serializable;
 
 public class Tesi implements Serializable {
+    private String dipartimento;
     private String idTesi;
     private String docente;
     private String nome;
@@ -23,8 +24,16 @@ public class Tesi implements Serializable {
         this.descrizione = descrizione;
     }
 
-    public Tesi(String idTesi, FirebaseFirestore db) {
 
+
+    public Tesi(String docente, String nome, String dib, String corso, String oreDurata, String mediaVoti, String descrizione) {
+        this.docente = docente;
+        this.nome = nome;
+        this.dipartimento = dib;
+        this.corso = corso;
+        this.durata = oreDurata;
+        this.media = mediaVoti;
+        this.descrizione = descrizione;
     }
 
     public String getIdTesi() {
@@ -33,6 +42,14 @@ public class Tesi implements Serializable {
 
     public void setIdTesi(String idTesi) {
         this.idTesi = idTesi;
+    }
+
+    public String getDipartimento() {
+        return dipartimento;
+    }
+
+    public void setDipartimento(String dipartimento) {
+        this.dipartimento = dipartimento;
     }
 
     public String getDocente() {

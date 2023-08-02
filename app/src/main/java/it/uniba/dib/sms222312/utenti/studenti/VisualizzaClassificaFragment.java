@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,6 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.SchermataCaricamento;
 import it.uniba.dib.sms222312.modelli.Classifica;
 import it.uniba.dib.sms222312.modelli.RecyclerViewInterface;
 import it.uniba.dib.sms222312.modelli.Tesi;
@@ -155,41 +157,47 @@ public class VisualizzaClassificaFragment extends Fragment implements RecyclerVi
             switch (direction){
                 case ItemTouchHelper.LEFT:
                 case ItemTouchHelper.RIGHT:
-                    Query query = db.collection("classifica").whereEqualTo("nome", classificaArrayList.get(position).getNome()).whereEqualTo("media", classificaArrayList.get(position).getMedia()).whereEqualTo("durata", classificaArrayList.get(position).getDurata()).whereEqualTo("utente", classificaArrayList.get(position).getUtente());
-                    query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            if (!queryDocumentSnapshots.isEmpty()) {
-                                // Ottieni il primo documento corrispondente
-                                DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                    new SchermataCaricamento().conferma(getContext(), getString(R.string.titoloConferma), getString(R.string.msgConferma))
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Query query = db.collection("classifica").whereEqualTo("nome", classificaArrayList.get(position).getNome()).whereEqualTo("media", classificaArrayList.get(position).getMedia()).whereEqualTo("durata", classificaArrayList.get(position).getDurata()).whereEqualTo("utente", classificaArrayList.get(position).getUtente());
+                                    query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                            if (!queryDocumentSnapshots.isEmpty()) {
+                                                // Ottieni il primo documento corrispondente
+                                                DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
 
-                                // Ottieni l'ID del documento
-                                String documentId = documentSnapshot.getId();
+                                                // Ottieni l'ID del documento
+                                                String documentId = documentSnapshot.getId();
 
-                                // Usa l'ID del documento per fare altre operazioni su di esso
-                                db.collection("classifica").document(documentId)
-                                        .delete()
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Log.d("msg", "DocumentSnapshot successfully deleted!");
+                                                // Usa l'ID del documento per fare altre operazioni su di esso
+                                                db.collection("classifica").document(documentId)
+                                                        .delete()
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Log.d("msg", "DocumentSnapshot successfully deleted!");
 
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.w("msg", "Error deleting document", e);
+                                                            }
+                                                        });
+                                            } else {
+                                                // Nessun documento corrispondente trovato
                                             }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.w("msg", "Error deleting document", e);
-                                            }
-                                        });
-                            } else {
-                                // Nessun documento corrispondente trovato
-                            }
 
-                        }
-                    });
-                    classificaArrayList.remove(position);
-                    myAdapter.notifyItemRemoved(position);
+                                        }
+                                    });
+                                    classificaArrayList.remove(position);
+                                    myAdapter.notifyItemRemoved(position);
+                                }})
+                            .create().show();
                     break;
             }
 
@@ -198,6 +206,7 @@ public class VisualizzaClassificaFragment extends Fragment implements RecyclerVi
 
     @Override
     public void onItemClick(int position) {
+
         Classifica classifica =classificaArrayList.get(position);
         String idTesi = classifica.getIdTesi();
         Log.d("",idTesi);
@@ -296,18 +305,22 @@ public class VisualizzaClassificaFragment extends Fragment implements RecyclerVi
                         Collections.sort(classificaArrayList, comparaPos);
                         myAdapter.notifyDataSetChanged();
                         t.setText(R.string.order_by_pos);
+
                         break;
                     case R.id.order_by_media:
                         ComparaMedia comparator = new ComparaMedia();
                         Collections.sort(classificaArrayList, comparator);
                         myAdapter.notifyDataSetChanged();
                         t.setText(R.string.order_by_media);
+
                         break;
                     case R.id.order_by_durata:
                         ComparaDurata comparatord = new ComparaDurata();
                         Collections.sort(classificaArrayList, comparatord);
                         myAdapter.notifyDataSetChanged();
                         t.setText(R.string.order_by_durata);
+
+                        Log.d("",myAdapter.toString());
                         break;
                     default:
                         return true;

@@ -1,9 +1,11 @@
 package it.uniba.dib.sms222312.utenti.docenti;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +32,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.SchermataCaricamento;
 import it.uniba.dib.sms222312.modelli.RecyclerViewInterface;
 import it.uniba.dib.sms222312.modelli.Tesi;
 import it.uniba.dib.sms222312.modelli.TesiAdapter;
@@ -124,32 +127,41 @@ public class ListaTesiFragment extends Fragment implements RecyclerViewInterface
     public void onItemLongClick(int position) {
 
 
-        Log.d("TAG","ss"+list.get(position).getIdTesi());
+        Log.d("TAG", "ss" + list.get(position).getIdTesi());
 
-        Query query = database.collection("tesisti").whereEqualTo("tesi", list.get(position).getIdTesi());
-        query.get().addOnSuccessListener(queryDocumentSnapshots -> {
-            if (!queryDocumentSnapshots.isEmpty()) {
+        new SchermataCaricamento().conferma(getContext(), getString(R.string.titoloConferma), getString(R.string.msgConferma))
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        Query query = database.collection("tesisti").whereEqualTo("tesi", list.get(position).getIdTesi());
 
-            }else{
-                // Usa l'ID del documento per fare altre operazioni su di esso
-                database.collection("tesi").document(list.get(position).getIdTesi())
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("msg", "DocumentSnapshot successfully deleted!");
-                                list.remove(position);
-                                myAdapter.notifyItemRemoved(position);
+                        query.get().addOnSuccessListener(queryDocumentSnapshots -> {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+
+                            } else {
+                                // Usa l'ID del documento per fare altre operazioni su di esso
+                                database.collection("tesi").document(list.get(position).getIdTesi())
+                                        .delete()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("msg", "DocumentSnapshot successfully deleted!");
+                                                list.remove(position);
+                                                myAdapter.notifyItemRemoved(position);
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("msg", "Error deleting document", e);
+                                            }
+                                        });
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("msg", "Error deleting document", e);
-                                        }
                         });
+                        myAdapter.notifyItemRemoved(position);
                     }
-                });
-        myAdapter.notifyItemRemoved(position);
+                })
+                .create()
+                .show();
     }
 }

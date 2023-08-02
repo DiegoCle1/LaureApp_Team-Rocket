@@ -71,8 +71,11 @@ private final LoadingDialog loadingDialog = new LoadingDialog(Registry.this);
         AutoCompleteTextView coursesSpinner = findViewById(R.id.spinner_corso);
         Object selectedItem = coursesSpinner.getText();
         String corso = selectedItem.toString();
+        AutoCompleteTextView coursesSpinner1 = findViewById(R.id.spinner_dipartimento);
+        Object selectedItem1 = coursesSpinner1.getText();
+        String dipartimento = selectedItem1.toString();
         // Verifica che tutti i campi siano stati compilati
-        if (email.isEmpty() || password.isEmpty() || matricola.isEmpty() || nome.isEmpty() || cognome.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty() || matricola.isEmpty() || nome.isEmpty() || cognome.isEmpty() ) {
             Toast.makeText(Registry.this, R.string.errorCampiObbligatori, Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -80,8 +83,8 @@ private final LoadingDialog loadingDialog = new LoadingDialog(Registry.this);
             Toast.makeText(Registry.this, R.string.errorMatricola, Toast.LENGTH_SHORT).show();
             return true;
         }
-        if(corso.equals("Seleziona corso")){
-            Toast.makeText(Registry.this, R.string.errorCorso, Toast.LENGTH_SHORT).show();
+        if(corso.equals("Seleziona corso") || dipartimento.isEmpty()){
+            Toast.makeText(Registry.this, R.string.errorDip, Toast.LENGTH_SHORT).show();
             return true;
         }
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -92,7 +95,7 @@ private final LoadingDialog loadingDialog = new LoadingDialog(Registry.this);
                         if (task.isSuccessful()) {
                             // Creazione di un nuovo utente riuscita
                             String user = auth.getCurrentUser().getUid();
-                            studente = new Studente(user,matricola,email,nome,cognome,corso);
+                            studente = new Studente(user,matricola,email,nome,cognome,dipartimento,corso);
                             if(studente.registraUtente(db,Registry.this))
                                 loadingDialog.dismissDialog();
                         } else {

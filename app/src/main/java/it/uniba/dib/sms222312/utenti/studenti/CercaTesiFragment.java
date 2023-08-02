@@ -29,6 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.checkerframework.common.subtyping.qual.Bottom;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.modelli.RecyclerViewInterface;
@@ -41,7 +42,6 @@ public class CercaTesiFragment extends Fragment implements RecyclerViewInterface
     FirebaseFirestore database;
     TesiAdapter myAdapter;
     ArrayList<Tesi> list;
-    String corso = null;
     private SearchView searchView;
 
     @Override
@@ -109,8 +109,8 @@ public class CercaTesiFragment extends Fragment implements RecyclerViewInterface
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                corso = documentSnapshot.getString("corso");
-                database.collection("tesi").whereEqualTo("corso",corso).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                String dipartimento = documentSnapshot.getString("dipartimento");
+                database.collection("tesi").whereIn("dipartimento", Arrays.asList(dipartimento, "")).addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot valua, @Nullable FirebaseFirestoreException error) {
                         if(error != null){

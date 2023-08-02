@@ -60,7 +60,7 @@ public class HomeDocenteFragment extends Fragment implements MyAdapterMenu.OnIte
             // Aggiungi gli elementi del menu
             menuItems.add(new cardHome(R.drawable.icona_mie_tesi, getString(R.string.mie_tesi),ListaTesiFragment.class.getName()));
             menuItems.add(new cardHome(R.drawable.icona_ricevimenti, getString(R.string.ricevimenti), ListaRicevimentiDocenteFragment.class.getName()));
-            menuItems.add(new cardHome(R.drawable.icona_richieste_tesi, getString(R.string.richiesta_tesi), ListaRichiesteActivity.class.getName()));
+            menuItems.add(new cardHome(R.drawable.icona_richieste_tesi, getString(R.string.richiesta_tesi), ListaRichiesteTesiFragment.class.getName()));
             menuItems.add(new cardHome(R.drawable.icona_tesi_avviate, getString(R.string.tesi_avviate), ListaTesistiFragment.class.getName()));
         }
     }

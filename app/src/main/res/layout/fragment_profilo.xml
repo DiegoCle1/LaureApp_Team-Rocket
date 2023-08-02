@@ -7,6 +7,25 @@
     android:orientation="vertical"
     tools:context=".utenti.studenti.ProfiloStudenteFragment">
 
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/btnChangeTheme"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:checked="false"
+        android:enabled="true"
+        android:textStyle="bold"
+        android:text="@string/themaChiaro"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toTopOf="@+id/card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.9"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         style="@style/MyOutlinedCardView"
@@ -16,7 +35,7 @@
         android:layout_margin="20dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="4dp"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintVertical_bias="0.08"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

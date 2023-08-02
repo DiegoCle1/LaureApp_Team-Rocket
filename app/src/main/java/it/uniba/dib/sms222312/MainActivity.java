@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new GestioneTema(this).setThema();
         setContentView(R.layout.activity_main);
         Button login = findViewById(R.id.home_login);
         Button registra = findViewById(R.id.home_registra);

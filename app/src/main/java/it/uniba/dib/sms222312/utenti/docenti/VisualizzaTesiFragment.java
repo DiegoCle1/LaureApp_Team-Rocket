@@ -46,7 +46,8 @@ public class VisualizzaTesiFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_visualizza_tesi, container, false);
-
+        Button indietro = view.findViewById(R.id.my_icon_button);
+        indietro.setVisibility(View.GONE);
         //recupero i dati
         Bundle bundle = getArguments();
         Tesi tesi = (Tesi) bundle.getSerializable("tesi");

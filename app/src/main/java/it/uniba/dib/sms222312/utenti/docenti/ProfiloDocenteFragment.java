@@ -1,14 +1,19 @@
 package it.uniba.dib.sms222312.utenti.docenti;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -16,6 +21,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import it.uniba.dib.sms222312.GestioneTema;
 import it.uniba.dib.sms222312.R;
 
 public class ProfiloDocenteFragment extends Fragment {
@@ -25,6 +31,7 @@ public class ProfiloDocenteFragment extends Fragment {
     String userId;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,6 +39,8 @@ public class ProfiloDocenteFragment extends Fragment {
 
 
         ((HomeDocente) getActivity()).setToolbarTitle(getResources().getString(R.string.profilo));
+
+        new GestioneTema(getContext()).setSwitch(view.findViewById(R.id.btnChangeTheme),getString(R.string.themaScuro),getString(R.string.themaChiaro));
 
         nome=view.findViewById(R.id.textView3);
         cognome=view.findViewById(R.id.textView4);
@@ -58,6 +67,7 @@ public class ProfiloDocenteFragment extends Fragment {
         });
         return view;
     }
+
 
 }
 

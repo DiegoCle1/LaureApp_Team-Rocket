@@ -3,13 +3,17 @@ package it.uniba.dib.sms222312.utenti.studenti;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -17,6 +21,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import it.uniba.dib.sms222312.GestioneTema;
 import it.uniba.dib.sms222312.R;
 
 public class ProfiloStudenteFragment extends Fragment {
@@ -33,6 +38,8 @@ public class ProfiloStudenteFragment extends Fragment {
 
 
         ((HomeStudente) getActivity()).setToolbarTitle(getResources().getString(R.string.profilo));
+
+        new GestioneTema(getContext()).setSwitch(view.findViewById(R.id.btnChangeTheme),getString(R.string.themaScuro),getString(R.string.themaChiaro));
 
         nome=view.findViewById(R.id.textView3);
         cognome=view.findViewById(R.id.textView4);

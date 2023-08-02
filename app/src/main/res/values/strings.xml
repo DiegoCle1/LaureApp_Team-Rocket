@@ -68,5 +68,7 @@
     <string name="richiesta_ric">Richieste ricevimento</string>
     <string name="visualizzaTask">Task tesi</string>
     <string name="ospite">Visualizza tesi</string>
+    <string name="themaChiaro">Tema chiaro</string>
+    <string name="themaScuro">Tema scuro</string>
 
 </resources>

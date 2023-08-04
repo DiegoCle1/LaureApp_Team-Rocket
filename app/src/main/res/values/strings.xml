@@ -85,5 +85,8 @@
     <string name="tutti_i_campi_sono_obbligatori">Tutti i campi sono obbligatori</string>
     <string name="modificaPass">Modifica Password</string>
     <string name="Conf_mod">Conferma Modifiche</string>
+    <string name="dati_caricati_con_successo">Dati caricati con successo</string>
+    <string name="si_verificato_un_errore">Si è verificato un errore</string>
+    <string name="compila_tutti_i_campi">Compila tutti i campi!</string>
 
 </resources>

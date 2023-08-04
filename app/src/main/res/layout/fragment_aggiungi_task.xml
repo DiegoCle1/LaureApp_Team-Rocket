@@ -71,7 +71,7 @@
                 android:drawableEnd="@drawable/ic_calendar"
                 android:focusable="false"
                 android:inputType="none"
-                android:onClick="showDatePickerDialog" />
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -3,6 +3,7 @@ package it.uniba.dib.sms222312.utenti.docenti;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,7 +12,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,7 +40,7 @@ import it.uniba.dib.sms222312.SchermataCaricamento;
 import it.uniba.dib.sms222312.modelli.adapterFile.AdapterFileCard;
 import it.uniba.dib.sms222312.modelli.TaskTesi;
 
-public class AggiungiTaskActivity extends AppCompatActivity implements AdapterFileCard.OnItemClickListener1{
+public class AggiungiTaskActivity extends Fragment implements AdapterFileCard.OnItemClickListener1{
 
     private EditText edtNome;
     private EditText edtDescrizione;
@@ -46,33 +49,45 @@ public class AggiungiTaskActivity extends AppCompatActivity implements AdapterFi
     private Button buttonCaricaDati;
     private HashSet<Uri> fileUris = new HashSet<>();
     String dataScadenza = null;
+    View view1;
     // Inizializza il ProgressBar
     SchermataCaricamento dialog;
     List<String> listaFile = new ArrayList<>();
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_aggiungi_task);
-        dialog = new SchermataCaricamento(this);
+
+        ((HomeDocente) getActivity()).setToolbarTitle(getString(R.string.visualizzaTask));
+        View view1 = inflater.inflate(R.layout.fragment_aggiungi_task, container, false);
+
+        Bundle bundle = getArguments();
+        String tesista = bundle.getString("Tesista");
+
+        dialog = new SchermataCaricamento(getContext());
 
 
 
         // Inizializza le variabili
-        edtNome = findViewById(R.id.nomeTask);
-        edtDescrizione = findViewById(R.id.descrizioneTask);
-        textViewDataScadenza = findViewById(R.id.date_picker_text_input_edit_text);
-        buttonScegliFile = findViewById(R.id.caricaFile);
-        buttonCaricaDati = findViewById(R.id.aggiungiTask);
+        edtNome = view1.findViewById(R.id.nomeTask);
+        edtDescrizione = view1.findViewById(R.id.descrizioneTask);
+        textViewDataScadenza = view1.findViewById(R.id.date_picker_text_input_edit_text);
+        buttonScegliFile = view1.findViewById(R.id.caricaFile);
+        buttonCaricaDati = view1.findViewById(R.id.aggiungiTask);
 
         // Ottieni i dati inseriti dall'utente
-        String tesista = getIntent().getStringExtra("Tesista");
+
 
         // Aggiungi un listener al pulsante per selezionare i file
         buttonScegliFile.setOnClickListener(view -> scegliFile());
 
         // Aggiungi un listener al pulsante per caricare i file
         buttonCaricaDati.setOnClickListener(view -> uploadData(dataScadenza, tesista));
+        view1.findViewById(R.id.date_picker_text_input_edit_text).setOnClickListener(view -> showDatePickerDialog(view));
+
+        return view1;
     }
 
     private void uploadData(String dataScadenza, String tesista) {
@@ -81,12 +96,12 @@ public class AggiungiTaskActivity extends AppCompatActivity implements AdapterFi
         Log.d("",dataScadenza+descrizione+nome);
         // Verifica che tutti i campi siano stati compilati
         if (nome.isEmpty() || descrizione.isEmpty() || dataScadenza.isEmpty()) {
-            Toast.makeText(this, "Compila tutti i campi!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.compila_tutti_i_campi, Toast.LENGTH_SHORT).show();
             return;
         }
 
         //codice per inizializzare Firebase
-        FirebaseApp.initializeApp(this);
+        FirebaseApp.initializeApp(getContext());
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
@@ -117,7 +132,7 @@ public class AggiungiTaskActivity extends AppCompatActivity implements AdapterFi
                             // Se si verifica un errore durante il caricamento su Firebase Storage, mostra un messaggio di errore
                             // Nascondi il ProgressBar
 
-                            Toast.makeText(this, "Si è verificato un errore", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), R.string.si_verificato_un_errore, Toast.LENGTH_SHORT).show();
 
                         });
             }
@@ -135,13 +150,14 @@ public class AggiungiTaskActivity extends AppCompatActivity implements AdapterFi
                 .addOnSuccessListener(aVoid -> {
                     // Nascondi il ProgressBar
                     dialog.dismiss();
-                    Toast.makeText(this, "Dati caricati con successo", Toast.LENGTH_SHORT).show();
-                    finish();
+                    Toast.makeText(getContext(), R.string.dati_caricati_con_successo, Toast.LENGTH_SHORT).show();
+                    getActivity().onBackPressed();
+                    //finish();
                 })
                 .addOnFailureListener(e -> {
                     // Se si verifica un errore durante il caricamento su Firebase Database, mostra un messaggio di errore
                     dialog.dismiss();
-                    Toast.makeText(this, "Si è verificato un errore", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.si_verificato_un_errore, Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -168,14 +184,14 @@ public class AggiungiTaskActivity extends AppCompatActivity implements AdapterFi
             }
         });
 
-        materialDatePicker.show(getSupportFragmentManager(), DATE_PICKER_TAG);
+        materialDatePicker.show(getActivity().getSupportFragmentManager(), DATE_PICKER_TAG);
     }
 
     private ActivityResultLauncher<String[]> filePickerLauncher =
             registerForActivityResult(new ActivityResultContracts.OpenMultipleDocuments(), uris -> {
                 if (uris != null && uris.size() > 0) {
                     if (!fileUris.addAll(uris)) {
-                        Toast.makeText(this, "Il file selezionato è già presente", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Il file selezionato è già presente", Toast.LENGTH_SHORT).show();
                     }
                     Log.d("a", fileUris.toString());
                     String testo = "File selezionati: " + fileUris.size();
@@ -195,9 +211,9 @@ public class AggiungiTaskActivity extends AppCompatActivity implements AdapterFi
             myList.add(getFileName(uri));
             myListUri.add(uri);
         }
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view1.findViewById(R.id.recyclerView);
         recyclerView.removeAllViews();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         AdapterFileCard adapter = new AdapterFileCard(myList, myListUri, this);
         recyclerView.setAdapter(adapter);
 
@@ -207,7 +223,7 @@ public class AggiungiTaskActivity extends AppCompatActivity implements AdapterFi
     public String getFileName(Uri uri) {
         String result = "unknown_file_name";
         if (uri.getScheme().equals("content")) {
-            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
             if (cursor != null && cursor.moveToFirst()) {
                 int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
                 if (columnIndex >= 0) {

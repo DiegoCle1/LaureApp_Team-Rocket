@@ -64,11 +64,15 @@ public class VisualizzaTesistaFragment extends Fragment implements ListaTaskAdap
         btnTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AggiungiTaskActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("Tesista", tesista);
+                AggiungiTaskActivity vistaTask = new AggiungiTaskActivity();
+                vistaTask.setArguments(bundle);
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, vistaTask)
+                        .addToBackStack(null)
+                        .commit();
 
-                intent.putExtra("Tesista", tesista);
-
-                startActivity(intent);
             }
         });
         return view;

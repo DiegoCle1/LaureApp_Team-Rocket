@@ -26,6 +26,7 @@ import java.util.List;
 import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.modelli.ListaRichiesteInterface;
 import it.uniba.dib.sms222312.modelli.Ricevimento;
+import it.uniba.dib.sms222312.modelli.StatoRicevimento;
 import it.uniba.dib.sms222312.modelli.adapterRicevimenti.RichiesteRicevimentoAdapter;
 
 public class ListaRichiesteRicevimentoFragment extends Fragment implements ListaRichiesteInterface {
@@ -69,7 +70,7 @@ public class ListaRichiesteRicevimentoFragment extends Fragment implements Lista
 
     private void EventChangeListener() {
 
-        db.collection("richiestaricevimento").whereIn("tesista", tesisti).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("ricevimenti").whereIn("tesista", tesisti).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error != null){
@@ -79,7 +80,9 @@ public class ListaRichiesteRicevimentoFragment extends Fragment implements Lista
 
                 for(DocumentChange dc : value.getDocumentChanges()){
                     if(dc.getType() == DocumentChange.Type.ADDED){
-                        ricevimentoArrayList.add(dc.getDocument().toObject(Ricevimento.class));
+                        Ricevimento ric = dc.getDocument().toObject(Ricevimento.class);
+                        if(ric.getStato() == StatoRicevimento.Inviata)
+                            ricevimentoArrayList.add(ric);
                     }
                     myAdapter.notifyDataSetChanged();
                 }

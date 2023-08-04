@@ -88,5 +88,7 @@
     <string name="dati_caricati_con_successo">Dati caricati con successo</string>
     <string name="si_verificato_un_errore">Si è verificato un errore</string>
     <string name="compila_tutti_i_campi">Compila tutti i campi!</string>
+    <string name="impossibile_accettare_richiesta">Impossibile accettare richiesta</string>
+    <string name="impossibile_eliminare_richiesta">Impossibile eliminare richiesta</string>
 
 </resources>

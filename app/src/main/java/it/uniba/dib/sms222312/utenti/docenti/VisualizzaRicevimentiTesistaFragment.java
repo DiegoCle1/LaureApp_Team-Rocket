@@ -25,6 +25,7 @@ import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.modelli.ListaRichiesteInterface;
 import it.uniba.dib.sms222312.modelli.RicevimentiAdapter;
 import it.uniba.dib.sms222312.modelli.Ricevimento;
+import it.uniba.dib.sms222312.modelli.StatoRicevimento;
 
 public class VisualizzaRicevimentiTesistaFragment extends Fragment implements ListaRichiesteInterface {
 
@@ -72,7 +73,9 @@ public class VisualizzaRicevimentiTesistaFragment extends Fragment implements Li
 
                 for(DocumentChange dc : value.getDocumentChanges()){
                     if(dc.getType() == DocumentChange.Type.ADDED){
-                        ricevimentoArrayList.add(dc.getDocument().toObject(Ricevimento.class));
+                        Ricevimento ric = dc.getDocument().toObject(Ricevimento.class);
+                        if(ric.getStato() != StatoRicevimento.Inviata)
+                        ricevimentoArrayList.add(ric);
                     }
                     myAdapter.notifyDataSetChanged();
                 }

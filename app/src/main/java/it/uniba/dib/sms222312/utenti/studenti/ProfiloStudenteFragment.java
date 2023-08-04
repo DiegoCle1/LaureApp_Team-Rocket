@@ -83,6 +83,6 @@ public class ProfiloStudenteFragment extends Fragment {
 
 
         dialog.setArguments(bundle);
-        dialog.show(getActivity().getSupportFragmentManager(), "ModificaProfiloFragment");
+        dialog.show(getActivity().getSupportFragmentManager(), "ModificaProfiloDocenteFragment");
     }
 }

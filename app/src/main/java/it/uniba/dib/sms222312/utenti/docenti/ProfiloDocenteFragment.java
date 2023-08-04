@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import it.uniba.dib.sms222312.GestioneTema;
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.utenti.studenti.ModificaProfiloFragment;
 
 public class ProfiloDocenteFragment extends Fragment {
     TextView nome,cognome,email;
@@ -65,10 +66,27 @@ public class ProfiloDocenteFragment extends Fragment {
                 email.setText(value.getString("email"));
             }
         });
+        view.findViewById(R.id.buttonModPro).setOnClickListener(new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View v) {
+                                                                        modificaPro();
+                                                                    }
+                                                                }
+        );
         return view;
     }
 
+    public void modificaPro(){
+        ModificaProfiloDocenteFragment dialog = new ModificaProfiloDocenteFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("Nome", nome.getText().toString());
+        bundle.putString("email", email.getText().toString());
+        bundle.putString("cognome", cognome.getText().toString());
 
+
+        dialog.setArguments(bundle);
+        dialog.show(getActivity().getSupportFragmentManager(), "ModificaProfiloDocenteFragment");
+    }
 }
 
 

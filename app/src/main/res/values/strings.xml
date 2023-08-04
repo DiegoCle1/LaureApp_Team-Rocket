@@ -73,5 +73,17 @@
     <string name="msgConferma">Sei sicuro di voler procedere?</string>
     <string name="titoloConferma">Conferma</string>
     <string name="mediaErr">Valore media non valido</string>
+    <string name="invia_richiesta">Invia richiesta</string>
+    <string name="inserire_descrizione_richiesta">Inserire descrizione richiesta</string>
+    <string name="richiedi_ricevimento">Richiedi ricevimento</string>
+    <string name="nessuna_tesi_collegata">Nessuna tesi collegata</string>
+    <string name="reimposta_password">Reimposta password</string>
+    <string name="modifica_profilo">Modifica Profilo</string>
+    <string name="inserisci_email_valida">Inserisci email valida</string>
+    <string name="email_inviata">Email inviata.</string>
+    <string name="errore_nel_reimpostare_la_password">Errore nel reimpostare la password.</string>
+    <string name="tutti_i_campi_sono_obbligatori">Tutti i campi sono obbligatori</string>
+    <string name="modificaPass">Modifica Password</string>
+    <string name="Conf_mod">Conferma Modifiche</string>
 
 </resources>

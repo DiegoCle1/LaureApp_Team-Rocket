@@ -3,10 +3,16 @@ package it.uniba.dib.sms222312.utenti.studenti;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -37,26 +43,34 @@ import it.uniba.dib.sms222312.modelli.Ricevimento;
 import it.uniba.dib.sms222312.modelli.StatoRicevimento;
 import it.uniba.dib.sms222312.modelli.TaskTesi;
 
-public class RichiestaRicevimentoFragment extends AppCompatActivity {
+public class RichiestaRicevimentoFragment extends DialogFragment {
 
     private TextInputEditText textViewData;
     private EditText edtDettagli;
     private AutoCompleteTextView spinnerArgomento;
     private Button btnRichiedi;
     String dataRicevimento = null;
-    FirebaseFirestore db;
+    private FirebaseFirestore db;
+    private AlertDialog alertDialog;
 
+    private Context mContext;
+
+    @NonNull
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_richiesta_ricevimento);
+        View view = inflater.inflate(R.layout.activity_richiesta_ricevimento, null);
 
-        String tesista = getIntent().getStringExtra("Tesista");
+        Bundle args = getArguments();
 
-        textViewData = findViewById(R.id.date_picker_text_input_edit_text);
-        edtDettagli = findViewById(R.id.dettagliRicevimento);
-        spinnerArgomento = findViewById(R.id.spinner_argomento);
-        btnRichiedi = findViewById(R.id.aggiungiRichiesta);
+        String tesista = args.getString("Tesista");
+
+        textViewData = view.findViewById(R.id.date_picker_text_input_edit_text);
+        edtDettagli = view.findViewById(R.id.dettagliRicevimento);
+        spinnerArgomento = view.findViewById(R.id.spinner_argomento);
+        btnRichiedi = view.findViewById(R.id.aggiungiRichiesta);
 
         db = FirebaseFirestore.getInstance();
         List<String> taska = new ArrayList<>();
@@ -77,7 +91,7 @@ public class RichiestaRicevimentoFragment extends AppCompatActivity {
                                 taska.add(tasko.getNome());
                             }
                             // Popola lo Spinner con la lista di corsi
-                            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(RichiestaRicevimentoFragment.this, android.R.layout.simple_spinner_item, taska);
+                            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, taska);
                             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             spinnerArgomento.setAdapter(spinnerAdapter);
                         } else {
@@ -108,18 +122,29 @@ public class RichiestaRicevimentoFragment extends AppCompatActivity {
                 db.collection("ricevimenti").document().set(ricevimento).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(RichiestaRicevimentoFragment.this,"Richiesta inviata", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Toast.makeText(mContext,"Richiesta inviata", Toast.LENGTH_SHORT).show();
+                        RichiestaRicevimentoFragment.this.getDialog().dismiss();
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RichiestaRicevimentoFragment.this,"Impossibile inviare richiesta", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext,"Impossibile inviare richiesta", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
+
+        View btnDP = view.findViewById(R.id.date_picker_text_input_edit_text);
+        btnDP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog(view);
+            }
+        });
+        builder.setView(view);
+        alertDialog = builder.create();
+        return alertDialog;
     }
 
     private static final String DATE_PICKER_TAG = "datePicker";
@@ -144,6 +169,12 @@ public class RichiestaRicevimentoFragment extends AppCompatActivity {
             }
         });
 
-        materialDatePicker.show(getSupportFragmentManager(), DATE_PICKER_TAG);
+        materialDatePicker.show(getActivity().getSupportFragmentManager(), DATE_PICKER_TAG);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
     }
 }

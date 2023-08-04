@@ -7,6 +7,18 @@
     android:orientation="vertical"
     tools:context=".utenti.studenti.ListaRicevimentiStudenteFragment">
 
+    <TextView
+        android:id="@+id/nessuna"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nessuna_tesi_collegata"
+        android:textSize="25sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Richiedi ricevimento"
+                android:text="@string/richiedi_ricevimento"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +58,8 @@
                 android:id="@+id/listaRicevimenti"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+
 
         </FrameLayout>
     </LinearLayout>

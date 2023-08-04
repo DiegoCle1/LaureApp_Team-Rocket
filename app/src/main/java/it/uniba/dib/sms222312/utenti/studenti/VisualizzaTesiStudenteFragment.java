@@ -162,15 +162,15 @@ public class VisualizzaTesiStudenteFragment extends Fragment {
         richiediButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth auth = FirebaseAuth.getInstance();
 
-                            Intent intent = new Intent(getContext(), InvioRichiestaActivity.class);
+                InvioRichiestaFragment dialog = new InvioRichiestaFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Studente", user);
+                bundle.putString("Docente", docente);
+                bundle.putString("Tesi", idtesi);
 
-                            intent.putExtra("Studente", user);
-                            intent.putExtra("Docente", docente);
-                            intent.putExtra("Tesi", idtesi);
-
-                            startActivity(intent);
+                dialog.setArguments(bundle);
+                dialog.show(getActivity().getSupportFragmentManager(), "ModificaTesiFragment");
 
             }
         });

@@ -22,6 +22,7 @@ import java.util.List;
 
 
 import it.uniba.dib.sms222312.R;
+import it.uniba.dib.sms222312.modelli.RichiestaTesi;
 import it.uniba.dib.sms222312.utenti.docenti.HomeDocente;
 import it.uniba.dib.sms222312.modelli.menuHome.MyAdapterMenu;
 import it.uniba.dib.sms222312.modelli.menuHome.cardHome;
@@ -68,7 +69,7 @@ public class HomeStudenteFragment extends Fragment implements MyAdapterMenu.OnIt
             menuItems.add(new cardHome(R.drawable.icona_ricerca, getString(R.string.ricercaTesi), CercaTesiFragment.class.getName()));
             menuItems.add(new cardHome(R.drawable.icona_ricevimenti, getString(R.string.ricevimenti), ListaRicevimentiStudenteFragment.class.getName()));
             menuItems.add(new cardHome(R.drawable.icona_mie_tesi, getString(R.string.miaTesi), ListaTaskFragment.class.getName()));
-            //menuItems.add(new cardHome(R.drawable.icona_richieste_tesi, getString(R.string.richieste_tesi), HomeDocente.class.getName()));
+            menuItems.add(new cardHome(R.drawable.icona_richieste_tesi, getString(R.string.richieste_tesi), RichiestaTesiFragment.class.getName()));
         }
     }
 

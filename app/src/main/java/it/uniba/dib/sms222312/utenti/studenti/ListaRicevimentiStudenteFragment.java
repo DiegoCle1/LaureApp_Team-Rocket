@@ -62,6 +62,7 @@ public class ListaRicevimentiStudenteFragment extends Fragment implements ListaR
         db = FirebaseFirestore.getInstance();
 
         Query query = db.collection("tesisti").whereEqualTo("studente", userId);
+
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -86,15 +87,17 @@ public class ListaRicevimentiStudenteFragment extends Fragment implements ListaR
                     btnRicevimento.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(getContext(), RichiestaRicevimentoFragment.class);
+                            RichiestaRicevimentoFragment dialog = new RichiestaRicevimentoFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("Tesista", tesista);
+                            dialog.setArguments(bundle);
+                            dialog.show(getActivity().getSupportFragmentManager(), "RichiestaRicevimentoFragment");
 
-                            intent.putExtra("Tesista", tesista);
-
-                            startActivity(intent);
                         }
                     });
                 } else {
-                    // Nessun documento corrispondente trovato
+                    btnRicevimento.setVisibility(View.GONE);
+                    view.findViewById(R.id.nessuna).setVisibility(View.VISIBLE);
                 }
 
             }

@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -67,6 +68,15 @@ public class VisualizzaRichiestaDialog extends DialogFragment {
         AutoCompleteTextView spinnerCorelatori = view.findViewById(R.id.spinner_corelatore);
         Button btnInvia = view.findViewById(R.id.accetta);
         Button btnRifiuta = view.findViewById(R.id.rifiuta);
+
+        FirebaseAuth mAuth=FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser().getUid().equals(studente)){
+            btnInvia.setVisibility(View.GONE);
+            btnRifiuta.setVisibility(View.GONE);
+            view.findViewById(R.id.spinner).setVisibility(View.GONE);
+            TextView text = view.findViewById(R.id.stato);
+            text.setText("In approvazione....");
+        }
 
         txtDescrizione.setText(descrizione);
         db = FirebaseFirestore.getInstance();

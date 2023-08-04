@@ -8,9 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,11 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -38,8 +34,6 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.modelli.Classifica;
 import it.uniba.dib.sms222312.modelli.Tesi;
-import it.uniba.dib.sms222312.utenti.studenti.HomeStudente;
-import it.uniba.dib.sms222312.utenti.studenti.InvioRichiestaActivity;
 
 
 public class VisualizzaTesiOspite extends AppCompatActivity {

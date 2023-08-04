@@ -61,7 +61,7 @@ public class AggiungiTaskActivity extends Fragment implements AdapterFileCard.On
         super.onCreate(savedInstanceState);
 
         ((HomeDocente) getActivity()).setToolbarTitle(getString(R.string.visualizzaTask));
-        View view1 = inflater.inflate(R.layout.fragment_aggiungi_task, container, false);
+        view1 = inflater.inflate(R.layout.fragment_aggiungi_task, container, false);
 
         Bundle bundle = getArguments();
         String tesista = bundle.getString("Tesista");

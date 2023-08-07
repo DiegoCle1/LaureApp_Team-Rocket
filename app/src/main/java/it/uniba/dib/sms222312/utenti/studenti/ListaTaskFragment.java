@@ -37,6 +37,7 @@ import it.uniba.dib.sms222312.modelli.adapterTask.ListaTaskAdapter1;
 import it.uniba.dib.sms222312.modelli.TaskTesi;
 import it.uniba.dib.sms222312.modelli.Tesi;
 import it.uniba.dib.sms222312.modelli.Tesista;
+import it.uniba.dib.sms222312.utenti.VisualizzaTaskFragment;
 
 public class ListaTaskFragment extends Fragment implements ListaTaskAdapter.OnItemClickListener {
 
@@ -189,7 +190,8 @@ public class ListaTaskFragment extends Fragment implements ListaTaskAdapter.OnIt
         TaskTesi task =taskArrayList.get(pos);
         Bundle bundle = new Bundle();
         bundle.putSerializable("task", task);
-        VisualizzaTaskStudenteFragment vistaTask = new VisualizzaTaskStudenteFragment();
+        ((HomeStudente) getActivity()).setToolbarTitle(getString(R.string.visualizzaTask));
+        VisualizzaTaskFragment vistaTask = new VisualizzaTaskFragment();
         vistaTask.setArguments(bundle);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.container, vistaTask)

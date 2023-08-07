@@ -1,4 +1,4 @@
-package it.uniba.dib.sms222312.utenti;
+package it.uniba.dib.sms222312.utenti.ospite;
 
 import android.Manifest;
 import android.content.Intent;

@@ -1,23 +1,18 @@
-package it.uniba.dib.sms222312.utenti;
+package it.uniba.dib.sms222312.utenti.ospite;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,8 +27,6 @@ import it.uniba.dib.sms222312.R;
 import it.uniba.dib.sms222312.modelli.RecyclerViewInterface;
 import it.uniba.dib.sms222312.modelli.Tesi;
 import it.uniba.dib.sms222312.modelli.TesiAdapter;
-import it.uniba.dib.sms222312.utenti.studenti.HomeStudente;
-import it.uniba.dib.sms222312.utenti.studenti.VisualizzaTesiStudenteFragment;
 
 public class Ospite extends AppCompatActivity implements RecyclerViewInterface {
     RecyclerView recyclerView;

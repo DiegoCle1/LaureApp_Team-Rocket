@@ -59,12 +59,12 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".utenti.Ospite"
+            android:name=".utenti.ospite.Ospite"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false" />
 
         <activity
-            android:name=".utenti.VisualizzaTesiOspite"
+            android:name=".utenti.ospite.VisualizzaTesiOspite"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false" />
     </application>

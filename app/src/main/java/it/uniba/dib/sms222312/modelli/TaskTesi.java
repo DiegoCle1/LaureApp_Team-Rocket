@@ -44,6 +44,7 @@ public class TaskTesi implements Serializable {
         this.descrizione = descrizione;
         this.stato = scadenza;
         this.scadenza = scadenza;
+        this.stato = stato;
         this.file = file;
     }
 

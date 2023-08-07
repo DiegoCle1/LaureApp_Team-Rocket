@@ -4,21 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import it.uniba.dib.sms222312.registrazione.Login;
 import it.uniba.dib.sms222312.registrazione.Registry;
 import it.uniba.dib.sms222312.registrazione.RegistryDocente;
-import it.uniba.dib.sms222312.utenti.Ospite;
+import it.uniba.dib.sms222312.utenti.ospite.Ospite;
 import it.uniba.dib.sms222312.utenti.docenti.HomeDocente;
 import it.uniba.dib.sms222312.utenti.studenti.HomeStudente;
 

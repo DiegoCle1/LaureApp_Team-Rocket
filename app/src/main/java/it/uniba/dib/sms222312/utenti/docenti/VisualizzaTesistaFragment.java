@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,9 +22,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import it.uniba.dib.sms222312.R;
-import it.uniba.dib.sms222312.modelli.Tesi;
 import it.uniba.dib.sms222312.modelli.adapterTask.ListaTaskAdapter;
 import it.uniba.dib.sms222312.modelli.TaskTesi;
+import it.uniba.dib.sms222312.utenti.VisualizzaTaskFragment;
 
 public class VisualizzaTesistaFragment extends Fragment implements ListaTaskAdapter.OnItemClickListener {
 
@@ -104,8 +103,8 @@ public class VisualizzaTesistaFragment extends Fragment implements ListaTaskAdap
         TaskTesi task =taskArrayList.get(pos);
         Bundle bundle = new Bundle();
         bundle.putSerializable("task", task);
-
-        VisualizzaTaskDocenteFragment vistaTask = new VisualizzaTaskDocenteFragment();
+        ((HomeDocente) getActivity()).setToolbarTitle(getString(R.string.visualizzaTask));
+        VisualizzaTaskFragment vistaTask = new VisualizzaTaskFragment();
         vistaTask.setArguments(bundle);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.container, vistaTask)

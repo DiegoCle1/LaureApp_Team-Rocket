@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nuovo ricevimento"
+            android:text="@string/nuovo_ricevimento"
             android:textAlignment="center"
             android:textSize="30sp"
             android:textStyle="bold"/>
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top"
-            android:hint="Argomento">
+            android:hint="@string/argomento">
 
             <AutoCompleteTextView
                 android:id="@+id/spinner_argomento"
@@ -44,14 +44,14 @@
             android:layout_height="150dp"
             android:gravity="top"
             android:layout_marginTop="8dp"
-            android:hint="Inserire dettagli"
+            android:hint="@string/inserire_dettagli"
             android:inputType="text|textMultiLine" />
 
         <TextView
             android:id="@+id/data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Data:"
+            android:text="@string/dataduepunti"
             android:textAlignment="center"
             android:textSize="26sp"/>
 
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Seleziona data">
+            android:hint="@string/seleziona_data">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/date_picker_text_input_edit_text"
@@ -87,7 +87,7 @@
             android:id="@+id/aggiungiRichiesta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Invia richiesta"/>
+            android:text="@string/send_richiesta"/>
 
     </LinearLayout>
 

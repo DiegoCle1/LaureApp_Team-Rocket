@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nuovo taskTesi"
+            android:text="@string/nuovo_tasktesi"
             android:textAlignment="center"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -33,7 +33,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome"
+            android:hint="@string/nome"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -49,14 +49,14 @@
             android:layout_height="150dp"
             android:layout_marginTop="8dp"
             android:gravity="top"
-            android:hint="Inserire descrizione"
+            android:hint="@string/inserire_descrizione"
             android:inputType="text|textMultiLine" />
 
         <TextView
             android:id="@+id/scadenza"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Scadenza:"
+            android:text="@string/scadenza_duepunti"
             android:textAlignment="center"
             android:textSize="26sp" />
 
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Seleziona data">
+            android:hint="@string/seleziona_data">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/date_picker_text_input_edit_text"

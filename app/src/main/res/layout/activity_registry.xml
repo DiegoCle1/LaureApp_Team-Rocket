@@ -147,7 +147,7 @@
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrazione Studente"
+        android:text="@string/registrazione_studente"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold"

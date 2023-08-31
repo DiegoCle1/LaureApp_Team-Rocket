@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Modifica Tesi"
+            android:text="@string/modifica_tesi"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -29,7 +29,7 @@
             android:id="@+id/nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome Tesi"
+            android:hint="@string/nome_tesi"
             android:inputType="text"
             android:padding="16dp" />
 
@@ -37,7 +37,7 @@
             android:id="@+id/durata"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Durata(ore)"
+            android:hint="@string/durata_ore"
             android:inputType="number"
             android:padding="16dp" />
 
@@ -45,7 +45,7 @@
             android:id="@+id/media"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Media voti richiesta"
+            android:hint="@string/media_voti_richiesta"
             android:inputType="number"
             android:padding="16dp" />
 
@@ -53,7 +53,7 @@
             android:id="@+id/descrizione"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Descrizione"
+            android:hint="@string/descrizione"
             android:inputType="text"
             android:padding="16dp" />
 

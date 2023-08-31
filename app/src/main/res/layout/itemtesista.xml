@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Matricola:"
+                android:text="@string/matricola_duepunti"
                 android:textSize="26sp"
                 android:textStyle="bold">
             </TextView>
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Matricola"
+                android:text="@string/matricola"
                 android:textSize="26sp">
             </TextView>
 
@@ -49,7 +49,7 @@
                 android:id="@+id/nomeTesista"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nome"
+                android:text="@string/nome"
                 android:textSize="20sp"
                 >
             </TextView>
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Cognome"
+                android:text="@string/cognome"
                 android:textSize="20sp">
             </TextView>
 
@@ -75,7 +75,7 @@
                 android:id="@+id/nomeTesi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tesi"
+                android:text="@string/tesi"
                 android:textSize="20sp"
                 >
             </TextView>

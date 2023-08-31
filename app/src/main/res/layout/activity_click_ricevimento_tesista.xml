@@ -27,24 +27,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dettagli" />
+            android:text="@string/dettagli" />
 
         <TextView
             android:id="@+id/dettagli"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dettagli" />
+            android:text="@string/dettagli" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data" />
+            android:text="@string/data" />
 
         <TextView
             android:id="@+id/data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data" />
+            android:text="@string/data" />
 
 
     </LinearLayout>

@@ -16,41 +16,41 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Studente" />
+            android:text="@string/studente" />
 
         <TextView
             android:id="@+id/studente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Studente" />
+            android:text="@string/studente" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tesi" />
+            android:text="@string/tesi" />
 
         <TextView
             android:id="@+id/tesi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tesi" />
+            android:text="@string/tesi" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Descrizione" />
+            android:text="@string/descrizione" />
 
         <TextView
             android:id="@+id/descrizione"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Descrizione" />
+            android:text="@string/descrizione" />
 
         <TextView
             android:id="@+id/stato"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Indicare un corelatore" />
+            android:text="@string/indicare_un_corelatore" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/spinner"
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top"
-            android:hint="Corelatore">
+            android:hint="@string/corelatore">
 
             <AutoCompleteTextView
                 android:id="@+id/spinner_corelatore"
@@ -83,7 +83,7 @@
                 android:layout_weight="1"
                 android:layout_marginRight="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Accetta"
+                android:text="@string/accetta"
                 />
 
             <Button
@@ -93,7 +93,7 @@
                 android:layout_weight="1"
                 android:layout_marginRight="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Rifiuta"
+                android:text="@string/rifiuta"
                 />
 
         </LinearLayout>

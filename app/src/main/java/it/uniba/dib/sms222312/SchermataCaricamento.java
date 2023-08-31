@@ -32,14 +32,14 @@ public class SchermataCaricamento {
 
         dialogC = new AlertDialog.Builder(context);
         // Imposta il titolo del dialogo
-        dialogC.setTitle("Conferma");
+        dialogC.setTitle(R.string.conferma);
 
         // Imposta il messaggio del dialogo
-        dialogC.setMessage("Sei sicuro di voler procedere?");
+        dialogC.setMessage(R.string.sicuro_procedere);
 
 
 
-        dialogC.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+        dialogC.setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

@@ -16,35 +16,35 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Task" />
+            android:text="@string/task" />
 
         <TextView
             android:id="@+id/taskTesi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Task" />
+            android:text="@string/task" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dettagli" />
+            android:text="@string/dettagli" />
 
         <TextView
             android:id="@+id/dettagli"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dettagli" />
+            android:text="@string/dettagli" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data" />
+            android:text="@string/data" />
 
         <TextView
             android:id="@+id/data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data" />
+            android:text="@string/data" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                 android:layout_weight="1"
                 android:layout_marginRight="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Accetta"
+                android:text="@string/accetta"
                 />
 
             <Button
@@ -69,7 +69,7 @@
                 android:layout_weight="1"
                 android:layout_marginRight="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Rifiuta"
+                android:text="@string/rifiuta"
                 />
 
         </LinearLayout>

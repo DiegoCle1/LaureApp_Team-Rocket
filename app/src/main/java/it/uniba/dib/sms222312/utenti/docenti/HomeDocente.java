@@ -147,7 +147,7 @@ public class HomeDocente extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if(toolbar.getTitle().equals(getResources().getString(R.string.profilo)))  return super.onOptionsItemSelected(item);
+        if(toolbar.getTitle().equals("Profilo"))  return super.onOptionsItemSelected(item);
         switch (itemId) {
             case R.id.profilo:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,profiloFragment).addToBackStack(null).commit();

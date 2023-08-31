@@ -83,7 +83,7 @@ private final LoadingDialog loadingDialog = new LoadingDialog(Registry.this);
             Toast.makeText(Registry.this, R.string.errorMatricola, Toast.LENGTH_SHORT).show();
             return true;
         }
-        if(corso.equals("Seleziona corso") || dipartimento.isEmpty()){
+        if(corso.equals(getString(R.string.Seleziona_corso)) || dipartimento.isEmpty()){
             Toast.makeText(Registry.this, R.string.errorDip, Toast.LENGTH_SHORT).show();
             return true;
         }

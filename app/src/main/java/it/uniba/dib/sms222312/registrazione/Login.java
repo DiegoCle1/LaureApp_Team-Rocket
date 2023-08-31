@@ -100,7 +100,7 @@ public class Login extends AppCompatActivity {
                                     // Controlla se l'utente è uno studente o un docente
                                     checkUserType();
                                 } else {
-                                    Toast.makeText(Login.this, "Autenticazione fallita.",
+                                    Toast.makeText(Login.this, R.string.Autenticazione_fallita,
                                             Toast.LENGTH_SHORT).show();
                                     loadingDialog.dismissDialog();
                                 }
